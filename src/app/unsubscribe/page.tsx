@@ -5,10 +5,10 @@ export default function UnsubscribePage() {
   const [status, setStatus] = useState('');
 
   const handleUnsubscribe = async () => {
-    const id = new URLSearchParams(window.location.search).get('id');
-    if (!id) return;
-
     try {
+      const id = new URLSearchParams(window.location.search).get('id');
+      if (!id) return;
+
       const res = await fetch('/api/unsubscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -20,7 +20,7 @@ export default function UnsubscribePage() {
       } else {
         setStatus('Error unsubscribing');
       }
-    } catch (error) {
+    } catch {
       setStatus('Error unsubscribing');
     }
   };
