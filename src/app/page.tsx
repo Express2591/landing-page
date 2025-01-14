@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, FormEvent } from 'react'; // Add FormEvent import
+import React, { useState, FormEvent } from 'react';
 import { CheckCheck, ShoppingBag, Timer } from 'lucide-react';
 
 export default function LandingPage() {
@@ -9,10 +9,10 @@ export default function LandingPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch("/api/subscribe", {
-        method: "POST",
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ email }),
       });
@@ -20,66 +20,72 @@ export default function LandingPage() {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert("Something went wrong. Please try again.");
+        alert('Something went wrong. Please try again.');
       }
-    } catch {
-      alert("Something went wrong. Please try again.");
+    } catch (error) {
+      alert('Something went wrong. Please try again.');
     }
   };
 
   return (
-    <div className="min-h-screen bg-white py-8 px-4">
-      <div className="max-w-lg mx-auto text-center">
-        <h1 className="text-4xl font-bold text-gray-900 mb-4">
-          Get Great Products That Last Forever
-        </h1>
-        
-        <p className="text-2xl text-gray-600 mb-8">
-          One simple email each day. One amazing product that never breaks.
-        </p>
-
-        <div className="bg-gray-50 p-6 rounded-lg mb-8 text-left">
-          <div className="text-lg font-semibold mb-2">Example: Yesterday&apos;s Pick</div>
-          <div className="w-full h-64 bg-gray-200 rounded-lg mb-4"></div>
-          <div className="text-xl font-bold mb-2">Stanley Thermos - $35</div>
-          <div className="text-gray-600">Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.</div>
+    <div className="min-h-screen bg-white px-4 py-6 flex items-center justify-center">
+      <div className="w-full max-w-md mx-auto">
+        <div className="text-center mb-6">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-3">
+            Get Great Products That Last Forever
+          </h1>
+          
+          <p className="text-xl text-gray-600">
+            One simple email each day. One amazing product that never breaks.
+          </p>
         </div>
 
-        <div className="grid grid-cols-1 gap-6 mb-8">
+        <div className="bg-gray-50 p-4 rounded-lg mb-6">
+          <div className="text-lg font-semibold mb-2">Today's Pick</div>
+          <img 
+            src="/stanley.jpg" // Make sure to add this image to your public folder
+            alt="Stanley Thermos"
+            className="w-full h-48 object-cover rounded-lg mb-3"
+          />
+          <div className="text-xl font-bold mb-1">Stanley Thermos - $35</div>
+          <div className="text-gray-600 text-sm">Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.</div>
+        </div>
+
+        <div className="grid grid-cols-1 gap-4 mb-6">
           <div className="flex items-center gap-3">
-            <ShoppingBag className="w-8 h-8 text-green-500" />
-            <span className="text-xl">Save money on stuff that lasts</span>
+            <ShoppingBag className="w-6 h-6 text-green-500 flex-shrink-0" />
+            <span className="text-lg">Save money on stuff that lasts</span>
           </div>
           <div className="flex items-center gap-3">
-            <Timer className="w-8 h-8 text-green-500" />
-            <span className="text-xl">Takes 1 minute to read each day</span>
+            <Timer className="w-6 h-6 text-green-500 flex-shrink-0" />
+            <span className="text-lg">Takes 1 minute to read each day</span>
           </div>
           <div className="flex items-center gap-3">
-            <CheckCheck className="w-8 h-8 text-green-500" />
-            <span className="text-xl">100% free forever</span>
+            <CheckCheck className="w-6 h-6 text-green-500 flex-shrink-0" />
+            <span className="text-lg">100% free forever</span>
           </div>
         </div>
 
         {!submitted ? (
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-3">
             <input
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Your email here"
-              className="w-full p-4 text-xl border-2 border-gray-300 rounded-lg"
+              className="w-full p-3 text-lg border-2 border-gray-300 rounded-lg"
               required
             />
             <button
               type="submit"
-              className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-lg hover:bg-green-600"
+              className="w-full bg-green-500 text-white text-lg font-bold p-3 rounded-lg hover:bg-green-600 transition-colors"
             >
               Send Me Good Products
             </button>
           </form>
         ) : (
-          <div className="bg-green-100 p-6 rounded-lg">
-            <div className="text-2xl font-bold text-green-800 mb-2">You&apos;re In! 🎉</div>
+          <div className="bg-green-100 p-4 rounded-lg">
+            <div className="text-xl font-bold text-green-800 mb-1">You're In! 🎉</div>
             <p className="text-green-700">Check your email tomorrow for your first product pick!</p>
           </div>
         )}
