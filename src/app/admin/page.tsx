@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { Product } from '../api/products/route';
+import type { Product } from '@/types';  // Import from our shared types
 
 export default function AdminPage() {
   const [products, setProducts] = useState<Product[]>([]);
