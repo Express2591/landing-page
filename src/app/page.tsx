@@ -40,11 +40,7 @@ export default function LandingPage() {
 
         <div className="bg-gray-50 p-6 rounded-lg mb-8 text-left">
           <div className="text-lg font-semibold mb-2">Example: Yesterday's Pick</div>
-          <img 
-            src="/api/placeholder/400/300"
-            alt="Example product"
-            className="w-full rounded-lg mb-4"
-          />
+          <div className="w-full h-64 bg-gray-200 rounded-lg mb-4"></div>
           <div className="text-xl font-bold mb-2">Stanley Thermos - $35</div>
           <div className="text-gray-600">Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.</div>
         </div>
