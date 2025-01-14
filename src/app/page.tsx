@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, FormEvent } from 'react';
-import { ShoppingBag, Timer, Star, Lock } from 'lucide-react';
+import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
 export default function LandingPage() {
