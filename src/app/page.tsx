@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, FormEvent } from 'react';
 import { CheckCheck, ShoppingBag, Timer } from 'lucide-react';
+import Image from 'next/image';
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export default function LandingPage() {
       } else {
         alert('Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       alert('Something went wrong. Please try again.');
     }
   };
@@ -44,10 +45,12 @@ export default function LandingPage() {
           <div className="p-4">
             <div className="text-lg font-semibold mb-3">Today&apos;s Pick</div>
             <div className="relative w-full aspect-[4/3] mb-4">
-              <img 
+              <Image 
                 src="/stanley.jpg"
                 alt="Stanley Thermos"
-                className="w-full h-full object-cover rounded-lg"
+                fill
+                className="object-cover rounded-lg"
+                priority
               />
             </div>
             <div className="text-xl font-bold mb-2">Stanley Thermos - $35</div>
