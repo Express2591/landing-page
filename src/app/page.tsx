@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, FormEvent } from 'react';
 import { CheckCheck, ShoppingBag, Timer } from 'lucide-react';
+import Image from 'next/image';
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
@@ -22,7 +23,7 @@ export default function LandingPage() {
       } else {
         alert('Something went wrong. Please try again.');
       }
-    } catch (error) {
+    } catch {
       alert('Something went wrong. Please try again.');
     }
   };
@@ -41,12 +42,15 @@ export default function LandingPage() {
         </div>
 
         <div className="bg-gray-50 p-4 rounded-lg mb-6">
-          <div className="text-lg font-semibold mb-2">Today's Pick</div>
-          <img 
-            src="/stanley.jpg" // Make sure to add this image to your public folder
-            alt="Stanley Thermos"
-            className="w-full h-48 object-cover rounded-lg mb-3"
-          />
+          <div className="text-lg font-semibold mb-2">Today&apos;s Pick</div>
+          <div className="relative w-full h-48 mb-3">
+            <Image 
+              src="/stanley.jpg"
+              alt="Stanley Thermos"
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
           <div className="text-xl font-bold mb-1">Stanley Thermos - $35</div>
           <div className="text-gray-600 text-sm">Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.</div>
         </div>
@@ -85,7 +89,7 @@ export default function LandingPage() {
           </form>
         ) : (
           <div className="bg-green-100 p-4 rounded-lg">
-            <div className="text-xl font-bold text-green-800 mb-1">You're In! 🎉</div>
+            <div className="text-xl font-bold text-green-800 mb-1">You&apos;re In! 🎉</div>
             <p className="text-green-700">Check your email tomorrow for your first product pick!</p>
           </div>
         )}
