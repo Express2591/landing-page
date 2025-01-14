@@ -6,13 +6,13 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => { // Add type here
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
+      const response = await fetch("/api/subscribe", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ email }),
       });
@@ -20,10 +20,10 @@ export default function LandingPage() {
       if (response.ok) {
         setSubmitted(true);
       } else {
-        alert('Something went wrong. Please try again.');
+        alert("Something went wrong. Please try again.");
       }
-    } catch (error) {
-      alert('Something went wrong. Please try again.');
+    } catch {
+      alert("Something went wrong. Please try again.");
     }
   };
 
@@ -79,7 +79,7 @@ export default function LandingPage() {
           </form>
         ) : (
           <div className="bg-green-100 p-6 rounded-lg">
-            <div className="text-2xl font-bold text-green-800 mb-2">You're In! 🎉</div>
+            <div className="text-2xl font-bold text-green-800 mb-2">You&apos;re In! 🎉</div>
             <p className="text-green-700">Check your email tomorrow for your first product pick!</p>
           </div>
         )}
