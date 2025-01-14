@@ -17,8 +17,8 @@ export async function POST(request: Request) {
     await redis.sadd('subscribers', email);
 
     // Send welcome email
-    await resend.emails.send({
-      from: 'onboarding@resend.dev', // You'll change this to your domain later
+    const emailResult = await resend.emails.send({
+      from: 'onboarding@resend.dev',
       to: email,
       subject: 'Welcome to Daily Product Picks!',
       html: `
@@ -35,11 +35,21 @@ export async function POST(request: Request) {
       `
     });
 
-    return NextResponse.json({ success: true });
+    console.log('Email sent:', emailResult);
+
+    return NextResponse.json({ 
+      success: true, 
+      message: 'Subscribed successfully',
+      emailData: emailResult 
+    });
+
   } catch (error) {
     console.error('Subscription error:', error);
     return NextResponse.json(
-      { error: 'Failed to subscribe' },
+      { 
+        error: 'Failed to subscribe', 
+        message: error.message 
+      },
       { status: 500 }
     );
   }
