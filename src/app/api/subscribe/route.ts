@@ -9,6 +9,11 @@ const redis = new Redis({
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+interface ErrorResponse {
+  message: string;
+  name?: string;
+}
+
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
@@ -43,12 +48,13 @@ export async function POST(request: Request) {
       emailData: emailResult 
     });
 
-  } catch (err: any) { // Type the error as 'any' to fix the TypeScript error
+  } catch (error) {
+    const err = error as ErrorResponse;
     console.error('Subscription error:', err);
     return NextResponse.json(
       { 
         error: 'Failed to subscribe', 
-        message: err?.message || 'Unknown error'
+        message: err.message || 'Unknown error'
       },
       { status: 500 }
     );
