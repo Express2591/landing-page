@@ -23,64 +23,70 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <div className="flex-1 px-4 pt-3 flex flex-col max-w-md mx-auto w-full">
-        <div className="text-center mb-3">
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">
-            Never Buy Cheap Junk Again
-          </h1>
-          
-          <p className="text-base text-gray-600">
-            One daily email. One unbreakable product.
-          </p>
+      <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
+        {/* Top Section */}
+        <div>
+          <div className="text-center mb-6">
+            <h1 className="text-3xl font-bold text-gray-900 mb-2">
+              Never Buy Cheap Junk Again
+            </h1>
+            
+            <p className="text-xl text-gray-600">
+              One daily email. One unbreakable product.
+            </p>
+          </div>
+
+          {/* Centered Email Form */}
+          {!submitted ? (
+            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
+              <form onSubmit={handleSubmit} className="space-y-3">
+                <input
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="Your email..."
+                  className="w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
+                  required
+                />
+                <button
+                  type="submit"
+                  className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
+                >
+                  JOIN FREE
+                </button>
+              </form>
+              <div className="flex items-center justify-center gap-2 mt-3">
+                <div className="flex">
+                  <Star className="w-4 h-4 text-amber-500 fill-current" />
+                  <Star className="w-4 h-4 text-amber-500 fill-current" />
+                  <Star className="w-4 h-4 text-amber-500 fill-current" />
+                  <Star className="w-4 h-4 text-amber-500 fill-current" />
+                  <Star className="w-4 h-4 text-amber-500 fill-current" />
+                </div>
+                <p className="text-sm text-gray-600 font-medium">
+                  50,000+ subscribers
+                </p>
+              </div>
+            </div>
+          ) : (
+            <div className="bg-green-100 p-6 rounded-xl text-center mb-6">
+              <div className="text-2xl mb-2">🎯</div>
+              <div className="text-xl font-bold text-green-800">Welcome to the Club!</div>
+              <p className="text-green-700">Your first pick is on the way!</p>
+            </div>
+          )}
         </div>
 
-        {!submitted ? (
-          <form onSubmit={handleSubmit} className="mb-3">
-            <div className="flex gap-2">
-              <input
-                type="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Your email..."
-                className="flex-1 p-3 text-base border-2 border-green-500 rounded-xl"
-                required
-              />
-              <button
-                type="submit"
-                className="bg-green-500 text-white px-4 font-bold rounded-xl hover:bg-green-600 transition-colors whitespace-nowrap"
-              >
-                JOIN
-              </button>
-            </div>
-            <div className="flex items-center justify-center gap-1 mt-1">
-              <div className="flex">
-                <Star className="w-3 h-3 text-amber-500 fill-current" />
-                <Star className="w-3 h-3 text-amber-500 fill-current" />
-                <Star className="w-3 h-3 text-amber-500 fill-current" />
-                <Star className="w-3 h-3 text-amber-500 fill-current" />
-                <Star className="w-3 h-3 text-amber-500 fill-current" />
-              </div>
-              <p className="text-xs text-gray-500">
-                50,000+ subscribers
-              </p>
-            </div>
-          </form>
-        ) : (
-          <div className="bg-green-100 p-3 rounded-xl text-center mb-3">
-            <div className="text-lg font-bold text-green-800">You&apos;re In! 🎯</div>
-            <p className="text-green-700 text-sm">First pick coming tomorrow!</p>
-          </div>
-        )}
-
-        <div className="bg-gray-50 rounded-xl shadow-sm mb-3">
-          <div className="p-3">
-            <div className="flex justify-between items-center mb-2">
-              <div className="text-base font-semibold">Today&apos;s Pick</div>
-              <div className="bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-bold">
+        {/* Middle Section */}
+        <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
+          <div className="p-4">
+            <div className="flex justify-between items-center mb-3">
+              <div className="text-lg font-bold">Today&apos;s Pick</div>
+              <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                 TRENDING
               </div>
             </div>
-            <div className="relative w-full aspect-[16/9] mb-2">
+            <div className="relative w-full aspect-[16/9] mb-3">
               <Image 
                 src="/stanley.jpg"
                 alt="Stanley Thermos"
@@ -89,25 +95,26 @@ export default function LandingPage() {
                 priority
               />
             </div>
-            <div className="font-bold mb-1">Stanley Thermos</div>
-            <div className="text-gray-600 text-sm">
+            <div className="text-xl font-bold mb-2">Stanley Thermos</div>
+            <div className="text-gray-600">
               Indestructible since 1913. Keeps drinks hot 24hrs.
             </div>
           </div>
         </div>
 
-        <div className="grid grid-cols-3 gap-2">
-          <div className="flex flex-col items-center p-2 bg-green-50 rounded-lg">
-            <ShoppingBag className="w-4 h-4 text-green-500 mb-1" />
-            <span className="text-xs text-center">Save Money</span>
+        {/* Bottom Section */}
+        <div className="grid grid-cols-3 gap-3">
+          <div className="bg-green-50 p-4 rounded-xl text-center">
+            <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
+            <span className="font-medium">Save Money</span>
           </div>
-          <div className="flex flex-col items-center p-2 bg-green-50 rounded-lg">
-            <Timer className="w-4 h-4 text-green-500 mb-1" />
-            <span className="text-xs text-center">Quick Read</span>
+          <div className="bg-green-50 p-4 rounded-xl text-center">
+            <Timer className="w-6 h-6 text-green-500 mx-auto mb-2" />
+            <span className="font-medium">Quick Read</span>
           </div>
-          <div className="flex flex-col items-center p-2 bg-green-50 rounded-lg">
-            <Star className="w-4 h-4 text-green-500 mb-1" />
-            <span className="text-xs text-center">Top Quality</span>
+          <div className="bg-green-50 p-4 rounded-xl text-center">
+            <Star className="w-6 h-6 text-green-500 mx-auto mb-2" />
+            <span className="font-medium">Top Quality</span>
           </div>
         </div>
       </div>
