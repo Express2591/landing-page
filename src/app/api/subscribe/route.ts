@@ -23,7 +23,7 @@ export async function POST(request: Request) {
 
     // Send welcome email
     const emailResult = await resend.emails.send({
-      from: 'onboarding@resend.dev',
+      from: 'hello@lastingbuys.com',
       to: email,
       subject: 'Welcome to Daily Product Picks!',
       html: `
