@@ -43,12 +43,12 @@ export async function POST(request: Request) {
       emailData: emailResult 
     });
 
-  } catch (error) {
-    console.error('Subscription error:', error);
+  } catch (err: any) { // Type the error as 'any' to fix the TypeScript error
+    console.error('Subscription error:', err);
     return NextResponse.json(
       { 
         error: 'Failed to subscribe', 
-        message: error.message 
+        message: err?.message || 'Unknown error'
       },
       { status: 500 }
     );
