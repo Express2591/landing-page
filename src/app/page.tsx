@@ -27,7 +27,6 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 px-4 pt-3 flex flex-col max-w-md mx-auto w-full">
-        {/* Urgency Banner */}
         <div className="bg-red-50 text-red-800 text-sm text-center py-2 px-4 rounded-lg mb-3 animate-pulse">
           ⚡️ Offer ends in {timeLeft} • 127 spots left today
         </div>
@@ -83,7 +82,7 @@ export default function LandingPage() {
 
         <div className="bg-gray-50 rounded-xl shadow-sm mb-4">
           <div className="relative bg-yellow-100 text-yellow-800 text-xs font-bold px-3 py-1 rounded-t-xl">
-            TODAY'S FEATURED DEAL
+            TODAY&apos;S FEATURED DEAL
           </div>
           <div className="p-4">
             <div className="relative w-full aspect-[4/3] mb-3">
@@ -112,7 +111,7 @@ export default function LandingPage() {
               Indestructible since 1913. Keeps drinks hot 24hrs.
             </div>
             <div className="bg-gray-100 rounded p-2 text-xs text-gray-600">
-              "Mine's survived 10+ years of daily use" - James K.
+              &quot;Mine&apos;s survived 10+ years of daily use&quot; - James K.
             </div>
           </div>
         </div>
