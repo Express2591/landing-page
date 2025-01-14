@@ -1,6 +1,9 @@
+// src/app/api/cron/daily/route.ts
 import { Redis } from '@upstash/redis';
 import { Resend } from 'resend';
 import { NextResponse } from 'next/server';
+import { createEmailTemplate } from '@/lib/emailTemplate';
+import { Product } from '@/app/api/products/route';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL || '',
@@ -9,57 +12,58 @@ const redis = new Redis({
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-// Simple product database to start with
-const products = [
-  {
-    name: "Stanley Thermos",
-    price: 35,
-    description: "Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.",
-    imageUrl: "https://lastingbuys.com/stanley.jpg", // Update with your actual image URL
-    purchaseUrl: "https://amzn.to/stanley" // Update with your affiliate link
-  },
-  // Add more products...
-];
-
 export async function GET(request: Request) {
   try {
-    // Verify this is actually coming from Vercel Cron
+    // Verify cron secret
     if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
       return new Response('Unauthorized', { status: 401 });
     }
 
-    // Get all subscribers
-    const subscribers = await redis.smembers('subscribers');
-    
-    // Get today's product (cycles through products)
-    const today = new Date();
-    const productIndex = today.getDate() % products.length;
-    const product = products[productIndex];
+    // Get all products and find today's product
+    const products = await redis.hgetall('products');
+    const today = new Date().toISOString().split('T')[0];
+    const todayProduct = Object.values(products)
+      .map(p => JSON.parse(p) as Product)
+      .find(p => p.scheduledDate === today);
 
-    // Send email to each subscriber
-    for (const email of subscribers) {
-      await resend.emails.send({
-        from: 'hello@lastingbuys.com',
-        to: email,
-        subject: `${product.name} - A Product That Lasts Forever`,
-        html: `
-          <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
-            <h1>${product.name} - $${product.price}</h1>
-            <p>${product.description}</p>
-            <a href="${product.purchaseUrl}" 
-               style="background-color: #22c55e; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">
-              Check it out
-            </a>
-          </div>
-        `
-      });
+    if (!todayProduct) {
+      return NextResponse.json({ error: 'No product scheduled for today' }, { status: 404 });
     }
+
+    // Get subscribers and send emails
+    const subscribers = await redis.smembers('subscribers');
+    const results = [];
+
+    for (const email of subscribers) {
+      try {
+        const result = await resend.emails.send({
+          from: 'hello@lastingbuys.com',
+          to: email,
+          subject: `${todayProduct.name} - A Product That Lasts Forever`,
+          html: createEmailTemplate(todayProduct, email),
+        });
+        results.push({ email, status: 'success', id: result.id });
+      } catch (error) {
+        results.push({ email, status: 'failed', error: error.message });
+      }
+
+      // Rate limiting
+      await new Promise(resolve => setTimeout(resolve, 100));
+    }
+
+    // Store analytics
+    await redis.hset(`stats:sent:${today}`, {
+      product: todayProduct.id,
+      total: subscribers.length,
+      success: results.filter(r => r.status === 'success').length,
+    });
 
     return NextResponse.json({ 
       success: true, 
-      emailsSent: subscribers.length,
-      product: product.name 
+      results,
+      product: todayProduct.name
     });
+
   } catch (error) {
     console.error('Daily email error:', error);
     return NextResponse.json({ error: 'Failed to send daily emails' }, { status: 500 });
