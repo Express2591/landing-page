@@ -1,11 +1,43 @@
 'use client';
-import React, { useState, FormEvent } from 'react';
+import React, { useState, FormEvent, useEffect } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
+
+// Sample products array
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Stanley Thermos",
+    description: "Indestructible since 1913. Keeps drinks hot 24hrs.",
+    image: "/stanley.jpg",
+  },
+  {
+    id: 2,
+    name: "Leather Belt",
+    description: "Full-grain leather. Gets better with age.",
+    image: "/belt.jpg", // Replace with belt image
+  },
+  {
+    id: 3,
+    name: "Cast Iron Pan",
+    description: "Lifetime cookware. Perfect sear every time.",
+    image: "/cast.jpg", // Replace with pan image
+  },
+];
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(0);
+
+  // Auto rotate products every 3 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,7 +56,6 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
-        {/* Top Section */}
         <div>
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
@@ -36,7 +67,6 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {/* Centered Email Form */}
           {!submitted ? (
             <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
               <form onSubmit={handleSubmit} className="space-y-3">
@@ -77,32 +107,42 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Middle Section */}
+        {/* Rotating Recent Picks */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
-              <div className="text-lg font-bold">Today&apos;s Pick</div>
+              <div className="text-lg font-bold">Recent Picks</div>
               <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                 TRENDING
               </div>
             </div>
             <div className="relative w-full aspect-[16/9] mb-3">
               <Image 
-                src="/stanley.jpg"
-                alt="Stanley Thermos"
+                src={PRODUCTS[currentProduct].image}
+                alt={PRODUCTS[currentProduct].name}
                 fill
-                className="object-cover rounded-lg"
+                className="object-cover rounded-lg transition-opacity duration-500"
                 priority
               />
+              {/* Dots indicator */}
+              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
+                {PRODUCTS.map((_, index) => (
+                  <div 
+                    key={index}
+                    className={`w-2 h-2 rounded-full ${index === currentProduct ? 'bg-white' : 'bg-white/50'}`}
+                  />
+                ))}
+              </div>
             </div>
-            <div className="text-xl font-bold mb-2">Stanley Thermos</div>
-            <div className="text-gray-600">
-              Indestructible since 1913. Keeps drinks hot 24hrs.
+            <div className="text-xl font-bold mb-2 transition-all duration-300">
+              {PRODUCTS[currentProduct].name}
+            </div>
+            <div className="text-gray-600 transition-all duration-300">
+              {PRODUCTS[currentProduct].description}
             </div>
           </div>
         </div>
 
-        {/* Bottom Section */}
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
