@@ -9,54 +9,59 @@ const redis = new Redis({
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-interface ErrorResponse {
-  message: string;
-  name?: string;
-}
+// Simple product database to start with
+const products = [
+  {
+    name: "Stanley Thermos",
+    price: 35,
+    description: "Keeps coffee hot for 24 hours. Survives being dropped. Made since 1913.",
+    imageUrl: "https://lastingbuys.com/stanley.jpg", // Update with your actual image URL
+    purchaseUrl: "https://amzn.to/stanley" // Update with your affiliate link
+  },
+  // Add more products...
+];
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   try {
-    const { email } = await request.json();
+    // Verify this is actually coming from Vercel Cron
+    if (request.headers.get('authorization') !== `Bearer ${process.env.CRON_SECRET}`) {
+      return new Response('Unauthorized', { status: 401 });
+    }
 
-    // Store email in Redis
-    await redis.sadd('subscribers', email);
+    // Get all subscribers
+    const subscribers = await redis.smembers('subscribers');
+    
+    // Get today's product (cycles through products)
+    const today = new Date();
+    const productIndex = today.getDate() % products.length;
+    const product = products[productIndex];
 
-    // Send welcome email
-    const emailResult = await resend.emails.send({
-      from: 'hello@lastingbuys.com',
-      to: email,
-      subject: 'Welcome to Daily Product Picks!',
-      html: `
-        <div>
-          <h1>Welcome to Daily Product Picks!</h1>
-          <p>Thanks for subscribing! You'll receive your first product recommendation tomorrow.</p>
-          <p>We hunt for products that are:</p>
-          <ul>
-            <li>Built to last</li>
-            <li>Worth every penny</li>
-            <li>Highly rated by real users</li>
-          </ul>
-        </div>
-      `
-    });
-
-    console.log('Email sent:', emailResult);
+    // Send email to each subscriber
+    for (const email of subscribers) {
+      await resend.emails.send({
+        from: 'hello@lastingbuys.com',
+        to: email,
+        subject: `${product.name} - A Product That Lasts Forever`,
+        html: `
+          <div style="max-width: 600px; margin: 0 auto; font-family: Arial, sans-serif;">
+            <h1>${product.name} - $${product.price}</h1>
+            <p>${product.description}</p>
+            <a href="${product.purchaseUrl}" 
+               style="background-color: #22c55e; color: white; padding: 12px 20px; text-decoration: none; border-radius: 6px; display: inline-block;">
+              Check it out
+            </a>
+          </div>
+        `
+      });
+    }
 
     return NextResponse.json({ 
       success: true, 
-      message: 'Subscribed successfully',
-      emailData: emailResult 
+      emailsSent: subscribers.length,
+      product: product.name 
     });
-
   } catch (error) {
-    const err = error as ErrorResponse;
-    console.error('Subscription error:', err);
-    return NextResponse.json(
-      { 
-        error: 'Failed to subscribe', 
-        message: err.message || 'Unknown error'
-      },
-      { status: 500 }
-    );
+    console.error('Daily email error:', error);
+    return NextResponse.json({ error: 'Failed to send daily emails' }, { status: 500 });
   }
 }
