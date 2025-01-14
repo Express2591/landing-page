@@ -1,12 +1,12 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react'; // Add FormEvent import
 import { CheckCheck, ShoppingBag, Timer } from 'lucide-react';
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => { // Add type here
     e.preventDefault();
     try {
       const response = await fetch('/api/subscribe', {
