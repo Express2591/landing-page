@@ -1,8 +1,7 @@
 import { Redis } from '@upstash/redis';
 import { NextResponse } from 'next/server';
-import { createEmailTemplate } from '../../../lib/emailTemplate';
 import { Resend } from 'resend';
-import type { Product } from '../../../types';  // Update this import path
+import { createEmailTemplate } from '../../../lib/emailTemplate';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL || '',
