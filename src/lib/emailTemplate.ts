@@ -1,6 +1,6 @@
 import type { Product } from '../types';
 
-export function createEmailTemplate(product: Product, subscriberId: string) {
+export function createEmailTemplate(product: Product, subscriberEmail: string) {
   const trackingPixel = `https://lastingbuys.com/api/track/open?sid=${subscriberId}&pid=${product.id}`;
   const trackingUrl = `https://lastingbuys.com/api/track/click?sid=${subscriberId}&pid=${product.id}&url=${encodeURIComponent(product.purchaseUrl)}`;
 
@@ -35,7 +35,8 @@ export function createEmailTemplate(product: Product, subscriberId: string) {
           </a>
           
           <p style="color: #6b7280; font-size: 12px; margin-top: 32px;">
-            <a href="https://lastingbuys.com/unsubscribe?id=${subscriberId}" style="color: #6b7280;">
+            <a href="https://lastingbuys.com/unsubscribe?email=${encodeURIComponent(subscriberEmail)}" 
+              style="color: #6b7280;">
               Unsubscribe
             </a> from daily product picks.
           </p>
