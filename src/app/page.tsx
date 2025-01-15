@@ -5,12 +5,7 @@ import Image from 'next/image';
 
 // Sample products array
 const PRODUCTS = [
-  {
-    id: 1,
-    name: "Meazzi Click Ruler",
-    description: "Italian rolling ruler from 1930. Curves perfectly around any shape. Makes measuring fun.",
-    image: "/meazzi.jpg",  // Replace with ruler image
-  },
+  
   {
     id: 2,
     name: "Kaweco Sport Pen",
@@ -22,6 +17,12 @@ const PRODUCTS = [
     name: "Snow Peak Titanium Mug",
     description: "Weightless but indestructible Japanese design. Perfect for coffee anywhere.",
     image: "/snowpeak.jpg", // Replace with mug image
+  },
+  {
+    id: 1,
+    name: "Zippo Hand Warmer",
+    description: "Flameless 1923 brass design. 12 hours of warmth. Perfect for outdoor adventures.",
+    image: "/zippo.jpg",  // Replace with hand warmer image
   },
  ];
 
