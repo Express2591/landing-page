@@ -7,23 +7,23 @@ import Image from 'next/image';
 const PRODUCTS = [
   {
     id: 1,
-    name: "Stanley Thermos",
-    description: "Indestructible since 1913. Keeps drinks hot 24hrs.",
-    image: "/stanley.jpg",
+    name: "Meazzi Click Ruler",
+    description: "Italian rolling ruler from 1930. Curves perfectly around any shape. Makes measuring fun.",
+    image: "/meazzi.jpg",  // Replace with ruler image
   },
   {
     id: 2,
-    name: "Leather Belt",
-    description: "Full-grain leather. Gets better with age.",
-    image: "/belt.jpg", // Replace with belt image
+    name: "Kaweco Sport Pen",
+    description: "Iconic 1935 German pocket pen. Expands to full size. Makes writing a joy.",
+    image: "/kaweco.jpg", // Replace with pen image
   },
   {
-    id: 3,
-    name: "Cast Iron Pan",
-    description: "Lifetime cookware. Perfect sear every time.",
-    image: "/cast.jpg", // Replace with pan image
+    id: 3, 
+    name: "Snow Peak Titanium Mug",
+    description: "Weightless but indestructible Japanese design. Perfect for coffee anywhere.",
+    image: "/snowpeak.jpg", // Replace with mug image
   },
-];
+ ];
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
