@@ -32,7 +32,7 @@ export default function UnsubscribePage() {
       } else {
         setStatus('Error unsubscribing. Please try again.');
       }
-    } catch (error) {
+    } catch {
       setStatus('Error unsubscribing. Please try again.');
     }
   };

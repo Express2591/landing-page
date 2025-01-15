@@ -94,7 +94,7 @@ export default function LandingPage() {
                   <Star className="w-4 h-4 text-amber-500 fill-current" />
                 </div>
                 <p className="text-sm text-gray-600 font-medium">
-                  50,000+ subscribers
+                  Join other smart shoppers
                 </p>
               </div>
             </div>
