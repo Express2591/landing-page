@@ -1,8 +1,8 @@
 import type { Product } from '../types';
 
 export function createEmailTemplate(product: Product, subscriberEmail: string) {
-  const trackingPixel = `https://lastingbuys.com/api/track/open?sid=${subscriberId}&pid=${product.id}`;
-  const trackingUrl = `https://lastingbuys.com/api/track/click?sid=${subscriberId}&pid=${product.id}&url=${encodeURIComponent(product.purchaseUrl)}`;
+  const trackingPixel = `https://lastingbuys.com/api/track/open?email=${encodeURIComponent(subscriberEmail)}&pid=${product.id}`;
+  const trackingUrl = `https://lastingbuys.com/api/track/click?email=${encodeURIComponent(subscriberEmail)}&pid=${product.id}&url=${encodeURIComponent(product.purchaseUrl)}`;
 
   return `
     <!DOCTYPE html>
@@ -14,7 +14,7 @@ export function createEmailTemplate(product: Product, subscriberEmail: string) {
       <body style="font-family: Arial, sans-serif; margin: 0; padding: 0; background-color: #f9fafb;">
         <div style="max-width: 600px; margin: 0 auto; background: white; padding: 20px;">
           <h1 style="color: #111827; font-size: 24px; margin-bottom: 16px;">
-            ${product.name} - $${product.price}
+            ${product.name}
           </h1>
           
           <img src="${product.imageUrl}" 
@@ -36,7 +36,7 @@ export function createEmailTemplate(product: Product, subscriberEmail: string) {
           
           <p style="color: #6b7280; font-size: 12px; margin-top: 32px;">
             <a href="https://lastingbuys.com/unsubscribe?email=${encodeURIComponent(subscriberEmail)}" 
-              style="color: #6b7280;">
+               style="color: #6b7280;">
               Unsubscribe
             </a> from daily product picks.
           </p>
