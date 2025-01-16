@@ -9,13 +9,7 @@ export async function POST(request: Request) {
     
     console.log('Attempting to subscribe:', { email, FORM_ID });
 
-    const payload = {
-      api_key: CONVERTKIT_API_KEY,
-      email: email
-    };
-
-    console.log('Sending to ConvertKit:', payload);
-
+    // Changed to use the form subscription endpoint
     const response = await fetch(
       `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`,
       {
@@ -23,7 +17,11 @@ export async function POST(request: Request) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(payload),
+        body: JSON.stringify({
+          api_secret: CONVERTKIT_API_KEY, // Changed from api_key to api_secret
+          email: email,
+          fields: {} // Optional custom fields
+        }),
       }
     );
 
