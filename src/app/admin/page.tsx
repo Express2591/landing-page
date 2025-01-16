@@ -1,119 +1,95 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import type { Product } from '../../types';  // Use relative path instead of @/types
+import { PRODUCTS } from '@/lib/products'; // Move your products array to a separate file
 
 export default function AdminPage() {
-  const [products, setProducts] = useState<Product[]>([]);
-  const [newProduct, setNewProduct] = useState<Partial<Product>>({
-    name: '',
-    price: 0,
-    description: '',
-    features: [],
-    imageUrl: '',
-    purchaseUrl: '',
-    category: '',
-  });
+  const [subscribers, setSubscribers] = useState<string[]>([]);
+  const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0]);
+  const [status, setStatus] = useState('');
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetchProducts();
+    fetchSubscribers();
   }, []);
 
-  const fetchProducts = async () => {
-    const res = await fetch('/api/products');
-    const data = await res.json();
-    setProducts(Object.values(data));
+  const fetchSubscribers = async () => {
+    try {
+      const res = await fetch('/api/subscribers');
+      const data = await res.json();
+      setSubscribers(data.subscribers);
+    } catch (error) {
+      console.error('Error fetching subscribers:', error);
+    }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await fetch('/api/products', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newProduct),
-    });
-    fetchProducts();
-    setNewProduct({
-      name: '',
-      price: 0,
-      description: '',
-      features: [],
-      imageUrl: '',
-      purchaseUrl: '',
-      category: '',
-    });
+  const sendEmailToSubscribers = async () => {
+    setLoading(true);
+    try {
+      const res = await fetch('/api/send-email', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ 
+          productId: selectedProduct.id 
+        })
+      });
+
+      const data = await res.json();
+      setStatus(`Emails sent: ${data.sentCount} successful, ${data.failedCount} failed`);
+    } catch (error) {
+      setStatus('Error sending emails');
+    }
+    setLoading(false);
   };
 
   return (
     <div className="p-8">
-      <h1 className="text-2xl font-bold mb-6">Product Management</h1>
+      <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
       
-      {/* Add New Product Form */}
-      <form onSubmit={handleSubmit} className="mb-8 space-y-4 max-w-2xl">
-        <input
-          type="text"
-          placeholder="Product Name"
-          value={newProduct.name}
-          onChange={e => setNewProduct({...newProduct, name: e.target.value})}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="number"
-          placeholder="Price"
-          value={newProduct.price}
-          onChange={e => setNewProduct({...newProduct, price: Number(e.target.value)})}
-          className="w-full p-2 border rounded"
-        />
-        <textarea
-          placeholder="Description"
-          value={newProduct.description}
-          onChange={e => setNewProduct({...newProduct, description: e.target.value})}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Features (comma separated)"
-          onChange={e => setNewProduct({...newProduct, features: e.target.value.split(',')})}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Image URL"
-          value={newProduct.imageUrl}
-          onChange={e => setNewProduct({...newProduct, imageUrl: e.target.value})}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Purchase URL"
-          value={newProduct.purchaseUrl}
-          onChange={e => setNewProduct({...newProduct, purchaseUrl: e.target.value})}
-          className="w-full p-2 border rounded"
-        />
-        <input
-          type="text"
-          placeholder="Category"
-          value={newProduct.category}
-          onChange={e => setNewProduct({...newProduct, category: e.target.value})}
-          className="w-full p-2 border rounded"
-        />
-        <button type="submit" className="bg-blue-500 text-white px-4 py-2 rounded">
-          Add Product
-        </button>
-      </form>
+      {/* Subscriber Count */}
+      <div className="mb-6 bg-white p-4 rounded-lg shadow">
+        <h2 className="font-bold mb-2">Subscribers</h2>
+        <p>{subscribers.length} total subscribers</p>
+      </div>
 
-      {/* Product List */}
-      <div className="space-y-4">
-        <h2 className="text-xl font-bold">Products</h2>
-        {products.map((product: Product) => (
-          <div key={product.id} className="border p-4 rounded">
-            <h3 className="font-bold">{product.name}</h3>
-            <p>${product.price}</p>
-            <p>{product.description}</p>
-            <div className="mt-2">
-              <small className="text-gray-500">Added: {new Date(product.addedDate).toLocaleDateString()}</small>
-            </div>
+      {/* Product Selection */}
+      <div className="mb-6 bg-white p-4 rounded-lg shadow">
+        <h2 className="font-bold mb-2">Send Email</h2>
+        <select 
+          className="w-full p-2 border rounded mb-4"
+          onChange={(e) => setSelectedProduct(PRODUCTS[parseInt(e.target.value)])}
+        >
+          {PRODUCTS.map((product, index) => (
+            <option key={product.id} value={index}>
+              {product.name}
+            </option>
+          ))}
+        </select>
+
+        <button
+          onClick={sendEmailToSubscribers}
+          disabled={loading}
+          className={`w-full p-2 rounded text-white ${loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'}`}
+        >
+          {loading ? 'Sending...' : 'Send Email to All Subscribers'}
+        </button>
+
+        {status && (
+          <div className="mt-4 p-2 bg-gray-100 rounded">
+            {status}
           </div>
-        ))}
+        )}
+      </div>
+
+      {/* Recent Subscribers */}
+      <div className="bg-white p-4 rounded-lg shadow">
+        <h2 className="font-bold mb-2">Recent Subscribers</h2>
+        <div className="max-h-60 overflow-y-auto">
+          {subscribers.slice(-10).reverse().map((email, i) => (
+            <div key={i} className="p-2 hover:bg-gray-50">
+              {email}
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );

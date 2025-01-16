@@ -21,7 +21,7 @@ const PRODUCTS = [
   {
     id: 1,
     name: "La Pavoni Europiccola",
-    description: "Handmade copper espresso art since 1961. Manual lever creates perfect crema. Made in Milan.",
+    description: "Handmade Italian copper espresso art since 1961. Manual lever creates perfect crema.",
     image: "/lapavoni.jpg",  // Replace with machine image
   },
  ];
