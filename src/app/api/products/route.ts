@@ -12,7 +12,7 @@ export async function GET() {
   try {
     const products = await redis.hgetall('products');
     if (!products) {
-      return NextResponse.json([]); // Return empty array if no products
+      return NextResponse.json([]);
     }
     
     const parsedProducts = Object.values(products).map(p => {
@@ -24,7 +24,7 @@ export async function GET() {
     }).filter(p => p !== null);
 
     return NextResponse.json(parsedProducts);
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to fetch products' }, 
       { status: 500 }
@@ -37,12 +37,10 @@ export async function POST(request: Request) {
   try {
     const product: Product = await request.json();
     
-    // Add id if not present
     if (!product.id) {
       product.id = Date.now();
     }
     
-    // Add timestamp if not present
     if (!product.addedDate) {
       product.addedDate = new Date().toISOString();
     }
@@ -55,7 +53,7 @@ export async function POST(request: Request) {
       success: true, 
       product 
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to add product' }, 
       { status: 500 }
@@ -83,7 +81,7 @@ export async function PUT(request: Request) {
       success: true, 
       product 
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to update product' }, 
       { status: 500 }
@@ -109,7 +107,7 @@ export async function DELETE(request: Request) {
       success: true, 
       id 
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Failed to delete product' }, 
       { status: 500 }
