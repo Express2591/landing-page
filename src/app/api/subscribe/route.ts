@@ -1,15 +1,15 @@
 import { NextResponse } from 'next/server';
 
 const API_SECRET = process.env.CONVERTKIT_API_SECRET;
-const SEQUENCE_ID = process.env.CONVERTKIT_SEQUENCE_ID; // Updated env variable name
+const SEQUENCE_ID = process.env.CONVERTKIT_SEQUENCE_ID;
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
     
-    // Using the sequences subscribe endpoint
-    const response = await fetch(
-      `https://api.convertkit.com/v3/courses/${SEQUENCE_ID}/subscribe`,
+    // First, create/activate the subscriber
+    const subscriberResponse = await fetch(
+      'https://api.convertkit.com/v3/subscribers',
       {
         method: 'POST',
         headers: {
@@ -17,17 +17,39 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           api_secret: API_SECRET,
-          email: email
+          email,
+          status: 'active'  // explicitly set as active
         }),
       }
     );
 
-    const responseData = await response.json();
-    console.log('ConvertKit Response:', responseData);
+    const subscriberData = await subscriberResponse.json();
+    console.log('Subscriber Creation Response:', subscriberData);
 
-    if (!response.ok) {
-      console.error('ConvertKit error:', responseData);
-      throw new Error(JSON.stringify(responseData));
+    if (!subscriberResponse.ok) {
+      throw new Error('Failed to create subscriber');
+    }
+
+    // Then add them to the sequence
+    const sequenceResponse = await fetch(
+      `https://api.convertkit.com/v3/sequences/${SEQUENCE_ID}/subscribe`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          api_secret: API_SECRET,
+          subscriber_id: subscriberData.subscriber.id
+        }),
+      }
+    );
+
+    const sequenceData = await sequenceResponse.json();
+    console.log('Sequence Subscription Response:', sequenceData);
+
+    if (!sequenceResponse.ok) {
+      throw new Error('Failed to add to sequence');
     }
 
     return NextResponse.json({ success: true });
