@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PRODUCTS } from '@/lib/products';  // Use absolute path with @ alias
+import { PRODUCTS, type Product } from '@/lib/products';
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
@@ -56,7 +56,7 @@ export default function AdminPage() {
           className="w-full p-2 border rounded mb-4"
           onChange={(e) => setSelectedProduct(PRODUCTS[parseInt(e.target.value)])}
         >
-          {PRODUCTS.map((product, index) => (
+          {PRODUCTS.map((product: Product, index: number) => (
             <option key={product.id} value={index}>
               {product.name}
             </option>
