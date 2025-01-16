@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PRODUCTS } from '@/lib/products';
+import { PRODUCTS } from '../../lib/products';  // Updated import path
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
