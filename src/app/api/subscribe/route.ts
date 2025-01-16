@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 
-const CONVERTKIT_API_KEY = process.env.CONVERTKIT_API_KEY;
+const API_SECRET = process.env.CONVERTKIT_API_SECRET; // Make sure to use API Secret, not API Key
 const FORM_ID = process.env.CONVERTKIT_FORM_ID;
 
 export async function POST(request: Request) {
@@ -9,18 +9,20 @@ export async function POST(request: Request) {
     
     console.log('Attempting to subscribe:', { email, FORM_ID });
 
-    // Changed to use the form subscription endpoint
+    // Using the direct subscriber creation endpoint
     const response = await fetch(
-      `https://api.convertkit.com/v3/forms/${FORM_ID}/subscribe`,
+      'https://api.convertkit.com/v3/forms/' + FORM_ID + '/subscribe',
       {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          api_secret: CONVERTKIT_API_KEY, // Changed from api_key to api_secret
-          email: email,
-          fields: {} // Optional custom fields
+          api_secret: API_SECRET,
+          email,
+          first_name: '', // optional
+          tags: [], // optional
+          fields: {} // optional
         }),
       }
     );
