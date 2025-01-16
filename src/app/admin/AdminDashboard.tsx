@@ -1,6 +1,7 @@
 'use client';
 import React, { useState, useEffect } from 'react';
 import { PRODUCTS, type Product } from '@/lib/products';
+import { createProductEmail } from '@/lib/emailTemplates/productEmail';
 
 interface ScheduledEmail {
   productId: number;
@@ -12,6 +13,13 @@ interface EmailStats {
   sent: number;
   opened: number;
   clicked: number;
+}
+
+interface EmailSection {
+  title?: string;
+  content: string;
+  type: 'text' | 'features' | 'cta' | 'quote';
+  style?: 'default' | 'highlight' | 'subtle';
 }
 
 export default function AdminDashboard() {
@@ -27,6 +35,8 @@ export default function AdminDashboard() {
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
   const [abTestEnabled, setAbTestEnabled] = useState(false);
+  const [customSections, setCustomSections] = useState<EmailSection[]>([]);
+  const [showPreview, setShowPreview] = useState(false);
 
   useEffect(() => {
     fetchSubscribers();
@@ -72,6 +82,7 @@ export default function AdminDashboard() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           productId: selectedProduct.id,
+          customSections,
           abTestEnabled
         })
       });
@@ -92,6 +103,7 @@ export default function AdminDashboard() {
         body: JSON.stringify({
           productId: selectedProduct.id,
           scheduledDate: scheduleDate,
+          customSections,
           abTestEnabled
         })
       });
@@ -133,63 +145,159 @@ export default function AdminDashboard() {
 
       {/* Email Composer */}
       <div className="bg-white p-6 rounded-lg shadow mb-6">
-        <h2 className="text-xl font-bold mb-4">Send or Schedule Email</h2>
+        <h2 className="text-xl font-bold mb-4">Email Composer</h2>
         
-        <div className="space-y-4">
-          <div>
-            <label className="block mb-2">Product</label>
-            <select 
-              className="w-full p-2 border rounded"
-              onChange={(e) => setSelectedProduct(PRODUCTS[parseInt(e.target.value)])}
-            >
-              {PRODUCTS.map((product, index) => (
-                <option key={product.id} value={index}>
-                  {product.name}
-                </option>
-              ))}
-            </select>
-          </div>
+        {/* Product Selection */}
+        <div>
+          <label className="block mb-2">Product</label>
+          <select 
+            className="w-full p-2 border rounded mb-4"
+            onChange={(e) => setSelectedProduct(PRODUCTS[parseInt(e.target.value)])}
+          >
+            {PRODUCTS.map((product, index) => (
+              <option key={product.id} value={index}>
+                {product.name}
+              </option>
+            ))}
+          </select>
+        </div>
 
-          <div className="flex items-center">
+        {/* Custom Sections */}
+        <div className="mt-4">
+          <h3 className="font-bold mb-2">Additional Sections</h3>
+          
+          {customSections.map((section, index) => (
+            <div key={index} className="mb-4 p-4 bg-gray-50 rounded">
+              <select
+                value={section.type}
+                onChange={(e) => {
+                  const newSections = [...customSections];
+                  newSections[index].type = e.target.value as EmailSection['type'];
+                  setCustomSections(newSections);
+                }}
+                className="mb-2 p-2 border rounded"
+              >
+                <option value="text">Text</option>
+                <option value="quote">Quote</option>
+                <option value="cta">Call to Action</option>
+              </select>
+              
+              <input
+                type="text"
+                placeholder="Title (optional)"
+                value={section.title || ''}
+                onChange={(e) => {
+                  const newSections = [...customSections];
+                  newSections[index].title = e.target.value;
+                  setCustomSections(newSections);
+                }}
+                className="mb-2 w-full p-2 border rounded"
+              />
+              
+              <textarea
+                placeholder="Content"
+                value={section.content}
+                onChange={(e) => {
+                  const newSections = [...customSections];
+                  newSections[index].content = e.target.value;
+                  setCustomSections(newSections);
+                }}
+                className="w-full p-2 border rounded mb-2"
+                rows={3}
+              />
+              
+              <select
+                value={section.style || 'default'}
+                onChange={(e) => {
+                  const newSections = [...customSections];
+                  newSections[index].style = e.target.value as EmailSection['style'];
+                  setCustomSections(newSections);
+                }}
+                className="mr-2 p-2 border rounded"
+              >
+                <option value="default">Default Style</option>
+                <option value="highlight">Highlighted</option>
+                <option value="subtle">Subtle</option>
+              </select>
+              
+              <button
+                onClick={() => {
+                  const newSections = customSections.filter((_, i) => i !== index);
+                  setCustomSections(newSections);
+                }}
+                className="text-red-500 hover:text-red-700"
+              >
+                Remove
+              </button>
+            </div>
+          ))}
+          
+          <button
+            onClick={() => setCustomSections([
+              ...customSections,
+              {
+                type: 'text',
+                content: '',
+                style: 'default'
+              }
+            ])}
+            className="bg-gray-500 text-white px-4 py-2 rounded hover:bg-gray-600"
+          >
+            Add Section
+          </button>
+        </div>
+
+        {/* A/B Testing Toggle */}
+        <div className="mt-4">
+          <label className="flex items-center">
             <input
               type="checkbox"
               checked={abTestEnabled}
               onChange={(e) => setAbTestEnabled(e.target.checked)}
               className="mr-2"
             />
-            <label>Enable A/B Testing</label>
-          </div>
+            Enable A/B Testing
+          </label>
+        </div>
 
-          <div>
-            <label className="block mb-2">Schedule (Optional)</label>
-            <input
-              type="datetime-local"
-              value={scheduleDate}
-              onChange={(e) => setScheduleDate(e.target.value)}
-              className="w-full p-2 border rounded mb-2"
-            />
-          </div>
+        {/* Schedule Option */}
+        <div className="mt-4">
+          <label className="block mb-2">Schedule (Optional)</label>
+          <input
+            type="datetime-local"
+            value={scheduleDate}
+            onChange={(e) => setScheduleDate(e.target.value)}
+            className="w-full p-2 border rounded mb-4"
+          />
+        </div>
 
-          <div className="flex gap-2">
+        {/* Preview & Send */}
+        <div className="flex gap-2">
+          <button
+            onClick={() => setShowPreview(true)}
+            className="flex-1 bg-blue-500 text-white p-2 rounded hover:bg-blue-600"
+          >
+            Preview Email
+          </button>
+          
+          {scheduleDate ? (
+            <button
+              onClick={scheduleEmail}
+              className="flex-1 bg-green-500 text-white p-2 rounded hover:bg-green-600"
+            >
+              Schedule
+            </button>
+          ) : (
             <button
               onClick={sendEmailToSubscribers}
               disabled={loading}
               className={`flex-1 p-2 rounded text-white ${
-                loading ? 'bg-gray-400' : 'bg-blue-500 hover:bg-blue-600'
+                loading ? 'bg-gray-400' : 'bg-green-500 hover:bg-green-600'
               }`}
             >
               {loading ? 'Sending...' : 'Send Now'}
             </button>
-            
-            {scheduleDate && (
-              <button
-                onClick={scheduleEmail}
-                className="flex-1 bg-green-500 text-white p-2 rounded hover:bg-green-600"
-              >
-                Schedule
-              </button>
-            )}
-          </div>
+          )}
         </div>
       </div>
 
@@ -218,6 +326,29 @@ export default function AdminDashboard() {
           ))}
         </div>
       </div>
+
+      {/* Preview Modal */}
+      {showPreview && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg max-w-2xl w-full max-h-[90vh] overflow-auto p-6">
+            <div className="flex justify-between mb-4">
+              <h3 className="text-xl font-bold">Email Preview</h3>
+              <button
+                onClick={() => setShowPreview(false)}
+                className="text-gray-500 hover:text-gray-700"
+              >
+                Close
+              </button>
+            </div>
+            <div
+              className="border rounded p-4"
+              dangerouslySetInnerHTML={{
+                __html: createProductEmail(selectedProduct, 'preview@example.com', customSections)
+              }}
+            />
+          </div>
+        </div>
+      )}
 
       {/* Status Message */}
       {status && (
