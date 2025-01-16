@@ -1,17 +1,15 @@
 import { NextResponse } from 'next/server';
 
 const API_SECRET = process.env.CONVERTKIT_API_SECRET;
-const FORM_ID = process.env.CONVERTKIT_FORM_ID;
+const SEQUENCE_ID = process.env.CONVERTKIT_SEQUENCE_ID; // Updated env variable name
 
 export async function POST(request: Request) {
   try {
     const { email } = await request.json();
     
-    console.log('Attempting to subscribe:', { email, FORM_ID });
-
-    // First add subscriber
+    // Using the sequences subscribe endpoint
     const response = await fetch(
-      'https://api.convertkit.com/v3/sequences/' + FORM_ID + '/subscribe',
+      `https://api.convertkit.com/v3/courses/${SEQUENCE_ID}/subscribe`,
       {
         method: 'POST',
         headers: {
@@ -19,10 +17,7 @@ export async function POST(request: Request) {
         },
         body: JSON.stringify({
           api_secret: API_SECRET,
-          email: email,
-          first_name: '',  // optional
-          fields: {},  // optional
-          tags: []  // optional
+          email: email
         }),
       }
     );
