@@ -45,14 +45,25 @@ export default function LandingPage() {
     try {
       const response = await fetch('/api/subscribe', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+        },
         body: JSON.stringify({ email }),
       });
-      if (response.ok) setSubmitted(true);
-    } catch {
+      
+      const data = await response.json();
+      console.log('Response:', data); // Add this to see the response
+
+      if (response.ok) {
+        setSubmitted(true);
+      } else {
+        alert('Something went wrong. Please try again.');
+      }
+    } catch (error) {
+      console.error('Submission error:', error);
       alert('Something went wrong. Please try again.');
     }
-  };
+};
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
