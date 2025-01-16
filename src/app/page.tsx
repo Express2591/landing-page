@@ -20,9 +20,9 @@ const PRODUCTS = [
   },
   {
     id: 1,
-    name: "Zippo Hand Warmer",
-    description: "Flameless 1923 brass design. 12 hours of warmth. Perfect for outdoor adventures.",
-    image: "/zippo.jpg",  // Replace with hand warmer image
+    name: "La Pavoni Europiccola",
+    description: "Handmade copper espresso art since 1961. Manual lever creates perfect crema. Made in Milan.",
+    image: "/lapavoni.jpg",  // Replace with machine image
   },
  ];
 
