@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PRODUCTS } from '@/lib/products';  // Using @ alias
+import { PRODUCTS } from '../../lib/products';  // Change to relative path
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
