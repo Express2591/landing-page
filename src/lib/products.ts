@@ -1,5 +1,5 @@
 export interface Product {
-    id: string;
+    id: number;
     name: string;
     description: string;
     image: string;
@@ -65,5 +65,5 @@ export const PRODUCTS: Product[] = [
         purchaseUrl: "https://example.com/snowpeak",
         category: "Outdoor",
         addedDate: new Date().toISOString()
-    },
+    }
 ];

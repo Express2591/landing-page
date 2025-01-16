@@ -1,27 +1,118 @@
 import { Redis } from '@upstash/redis';
 import { NextResponse } from 'next/server';
-import type { Product } from '@/types';
+import { Product } from '@/lib/products';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL || '',
   token: process.env.UPSTASH_REDIS_TOKEN || '',
 });
 
+// Get all products
 export async function GET() {
-  const products = await redis.hgetall('products');
-  return NextResponse.json(products);
+  try {
+    const products = await redis.hgetall('products');
+    if (!products) {
+      return NextResponse.json([]); // Return empty array if no products
+    }
+    
+    const parsedProducts = Object.values(products).map(p => {
+      try {
+        return JSON.parse(p as string);
+      } catch {
+        return null;
+      }
+    }).filter(p => p !== null);
+
+    return NextResponse.json(parsedProducts);
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to fetch products' }, 
+      { status: 500 }
+    );
+  }
 }
 
+// Add new product
 export async function POST(request: Request) {
-  const product: Product = await request.json();
-  
-  // Add id and date if not present
-  product.id = product.id || `prod_${Date.now()}`;
-  product.addedDate = product.addedDate || new Date().toISOString();
-  
-  await redis.hset('products', {
-    [product.id]: JSON.stringify(product)
-  });
-  
-  return NextResponse.json({ success: true, product });
+  try {
+    const product: Product = await request.json();
+    
+    // Add id if not present
+    if (!product.id) {
+      product.id = Date.now();
+    }
+    
+    // Add timestamp if not present
+    if (!product.addedDate) {
+      product.addedDate = new Date().toISOString();
+    }
+    
+    await redis.hset('products', {
+      [product.id]: JSON.stringify(product)
+    });
+    
+    return NextResponse.json({ 
+      success: true, 
+      product 
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to add product' }, 
+      { status: 500 }
+    );
+  }
+}
+
+// Update product
+export async function PUT(request: Request) {
+  try {
+    const product: Product = await request.json();
+    
+    if (!product.id) {
+      return NextResponse.json(
+        { error: 'Product ID is required' }, 
+        { status: 400 }
+      );
+    }
+    
+    await redis.hset('products', {
+      [product.id]: JSON.stringify(product)
+    });
+    
+    return NextResponse.json({ 
+      success: true, 
+      product 
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to update product' }, 
+      { status: 500 }
+    );
+  }
+}
+
+// Delete product
+export async function DELETE(request: Request) {
+  try {
+    const { id } = await request.json();
+    
+    if (!id) {
+      return NextResponse.json(
+        { error: 'Product ID is required' }, 
+        { status: 400 }
+      );
+    }
+    
+    await redis.hdel('products', id.toString());
+    
+    return NextResponse.json({ 
+      success: true, 
+      id 
+    });
+  } catch (error) {
+    return NextResponse.json(
+      { error: 'Failed to delete product' }, 
+      { status: 500 }
+    );
+  }
 }
