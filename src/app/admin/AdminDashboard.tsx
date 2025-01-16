@@ -29,6 +29,7 @@ const defaultProduct: Product = {
   description: '',
   price: 0,
   features: [],
+  image: "/lapavoni.jpg",
   imageUrl: '',
   purchaseUrl: '',
   category: '',
