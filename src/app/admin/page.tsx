@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PRODUCTS } from '@/lib/products'; // Move your products array to a separate file
+import { PRODUCTS } from '@/lib/products';
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
@@ -17,8 +17,8 @@ export default function AdminPage() {
       const res = await fetch('/api/subscribers');
       const data = await res.json();
       setSubscribers(data.subscribers);
-    } catch (error) {
-      console.error('Error fetching subscribers:', error);
+    } catch {
+      console.error('Error fetching subscribers');
     }
   };
 
@@ -35,7 +35,7 @@ export default function AdminPage() {
 
       const data = await res.json();
       setStatus(`Emails sent: ${data.sentCount} successful, ${data.failedCount} failed`);
-    } catch (error) {
+    } catch {
       setStatus('Error sending emails');
     }
     setLoading(false);
@@ -45,13 +45,11 @@ export default function AdminPage() {
     <div className="p-8">
       <h1 className="text-2xl font-bold mb-6">Admin Dashboard</h1>
       
-      {/* Subscriber Count */}
       <div className="mb-6 bg-white p-4 rounded-lg shadow">
         <h2 className="font-bold mb-2">Subscribers</h2>
         <p>{subscribers.length} total subscribers</p>
       </div>
 
-      {/* Product Selection */}
       <div className="mb-6 bg-white p-4 rounded-lg shadow">
         <h2 className="font-bold mb-2">Send Email</h2>
         <select 
@@ -80,7 +78,6 @@ export default function AdminPage() {
         )}
       </div>
 
-      {/* Recent Subscribers */}
       <div className="bg-white p-4 rounded-lg shadow">
         <h2 className="font-bold mb-2">Recent Subscribers</h2>
         <div className="max-h-60 overflow-y-auto">
