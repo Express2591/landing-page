@@ -1,10 +1,11 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { PRODUCTS } from '../../lib/products';  // Change to relative path
+import type { Product } from '../../lib/products';
+import { PRODUCTS } from '../../lib/products';
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
-  const [selectedProduct, setSelectedProduct] = useState(PRODUCTS[0]);
+  const [selectedProduct, setSelectedProduct] = useState<Product>(PRODUCTS[0]);
   const [status, setStatus] = useState('');
   const [loading, setLoading] = useState(false);
 
