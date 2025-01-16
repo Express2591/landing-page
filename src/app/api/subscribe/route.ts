@@ -1,7 +1,7 @@
 import { Redis } from '@upstash/redis';
-import { NextResponse } from 'next/server';
 import { Resend } from 'resend';
-import { createEmailTemplate } from '../../../lib/emailTemplate';
+import { NextResponse } from 'next/server';
+import { createEmailTemplate } from '@/lib/emailTemplate';
 
 const redis = new Redis({
   url: process.env.UPSTASH_REDIS_URL || '',
@@ -23,12 +23,12 @@ export async function POST(request: Request) {
       to: email,
       subject: 'Welcome to Daily Product Picks!',
       html: createEmailTemplate({
-        id: 'welcome',
+        id: 0,
         name: 'Welcome',
         price: 0,
         description: 'Thanks for subscribing!',
         features: [],
-        imageUrl: '',
+        imageUrl: '/welcome.jpg', // Using imageUrl instead of image
         purchaseUrl: '',
         category: 'welcome',
         addedDate: new Date().toISOString()
@@ -36,8 +36,7 @@ export async function POST(request: Request) {
     });
 
     return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Subscription error:', error);
+  } catch {
     return NextResponse.json(
       { error: 'Failed to subscribe' },
       { status: 500 }
