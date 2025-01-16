@@ -1,7 +1,6 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import type { Product } from '../../lib/products';
-import { PRODUCTS } from '../../lib/products';
+import { PRODUCTS } from '@/lib/products';  // Use absolute path with @ alias
 
 export default function AdminPage() {
   const [subscribers, setSubscribers] = useState<string[]>([]);
