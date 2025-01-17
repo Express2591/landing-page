@@ -33,7 +33,7 @@ export default function Page() {
         <div className="text-center mb-8">
           <div className="text-4xl mb-2">🎉</div>
           <h1 className="text-2xl font-bold mb-2">You{"'"}re In!</h1>
-          <p className="text-gray-600">Your first pick arrives tomorrow at 11am EST</p>
+          <p className="text-gray-600">Your first pick arrives tomorrow</p>
         </div>
 
         <div className="space-y-4">
