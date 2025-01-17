@@ -1,50 +1,14 @@
 'use client';
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
-import Image from 'next/image';
-
-// Sample products array
-const PRODUCTS = [
-  
-  {
-    id: 2,
-    name: "Kaweco Sport Pen",
-    description: "Iconic 1935 German pocket pen. Expands to full size. Makes writing a joy.",
-    image: "/kaweco.jpg", // Replace with pen image
-  },
-  {
-    id: 3, 
-    name: "Snow Peak Titanium Mug",
-    description: "Weightless but indestructible Japanese design. Perfect for coffee anywhere.",
-    image: "/snowpeak.jpg", // Replace with mug image
-  },
-  {
-    id: 1,
-    name: "La Pavoni Europiccola",
-    description: "Handmade Italian copper espresso art since 1961. Manual lever creates perfect crema.",
-    image: "/lapavoni.jpg",  // Replace with machine image
-  },
- ];
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
-  const [currentProduct, setCurrentProduct] = useState(0);
-
-  // Auto rotate products every 3 seconds
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
-    }, 3000);
-
-    return () => clearInterval(timer);
-  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
-      console.log('Submitting email:', email); // Debug log
-      
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
@@ -54,18 +18,17 @@ export default function LandingPage() {
       });
       
       const data = await response.json();
-      console.log('Response:', data); // Debug log
-
-      if (!response.ok) {
-        throw new Error(data.details || 'Failed to subscribe');
+      
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
       }
-
-      setSubmitted(true);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('Submission error:', error);
       alert('Something went wrong. Please try again.');
     }
-};
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
