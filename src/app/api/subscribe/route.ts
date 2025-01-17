@@ -4,25 +4,27 @@ export async function POST(request: Request) {
   try {
     const { email } = await request.json();
 
-    // Make sure environment variables exist
     if (!process.env.CONVERTKIT_API_KEY) {
       throw new Error('API Key not configured');
     }
 
-    const response = await fetch('https://api.convertkit.com/v3/forms/' + process.env.CONVERTKIT_FORM_ID + '/subscribe', {
+    // Using form ID 7574436 based on your ConvertKit URL
+    const response = await fetch('https://api.convertkit.com/v3/forms/7574436/subscribe', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        api_key: process.env.CONVERTKIT_API_KEY, // Using API Key here, not Secret
+        api_key: process.env.CONVERTKIT_API_KEY,
         email: email
       }),
     });
 
     const data = await response.json();
+    console.log('ConvertKit Response:', data); // Debug log
 
     if (!response.ok) {
+      console.error('ConvertKit Error:', data); // Debug log
       throw new Error(data.message || 'Failed to subscribe');
     }
 
