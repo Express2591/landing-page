@@ -43,6 +43,8 @@ export default function LandingPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
+      console.log('Submitting email:', email); // Debug log
+      
       const response = await fetch('/api/subscribe', {
         method: 'POST',
         headers: {
@@ -52,15 +54,15 @@ export default function LandingPage() {
       });
       
       const data = await response.json();
-      console.log('Response:', data); // Add this to see the response
+      console.log('Response:', data); // Debug log
 
-      if (response.ok) {
-        setSubmitted(true);
-      } else {
-        alert('Something went wrong. Please try again.');
+      if (!response.ok) {
+        throw new Error(data.details || 'Failed to subscribe');
       }
+
+      setSubmitted(true);
     } catch (error) {
-      console.error('Submission error:', error);
+      console.error('Error:', error);
       alert('Something went wrong. Please try again.');
     }
 };
