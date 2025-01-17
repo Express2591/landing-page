@@ -110,10 +110,10 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="bg-green-100 p-6 rounded-xl text-center mb-6">
-              <div className="text-2xl mb-2">🎯</div>
+              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
-              <p className="text-sm text-green-600">Can't find it? Check your spam folder for an email from "Buy For Life"</p>
+              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;LastingBuys&rdquo;</p>
             </div>
           )}
         </div>
