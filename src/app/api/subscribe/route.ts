@@ -5,8 +5,8 @@ export async function POST(request: Request) {
     const { email } = await request.json();
 
     // Make sure environment variables exist
-    if (!process.env.CONVERTKIT_API_SECRET) {
-      throw new Error('API Secret not configured');
+    if (!process.env.CONVERTKIT_API_KEY) {
+      throw new Error('API Key not configured');
     }
 
     const response = await fetch('https://api.convertkit.com/v3/forms/' + process.env.CONVERTKIT_FORM_ID + '/subscribe', {
@@ -15,7 +15,7 @@ export async function POST(request: Request) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        api_key: process.env.CONVERTKIT_API_SECRET,
+        api_key: process.env.CONVERTKIT_API_KEY, // Using API Key here, not Secret
         email: email
       }),
     });
