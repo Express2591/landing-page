@@ -1,10 +1,43 @@
 'use client';
-import React, { useState, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react'; // Added useEffect import
 import { ShoppingBag, Timer, Star } from 'lucide-react';
+import Image from 'next/image';
+
+// Sample products array (removed extra comma)
+const PRODUCTS = [
+  {
+    id: 2,
+    name: "Kaweco Sport Pen",
+    description: "Iconic 1935 German pocket pen. Expands to full size. Makes writing a joy.",
+    image: "/kaweco.jpg"
+  },
+  {
+    id: 3, 
+    name: "Snow Peak Titanium Mug",
+    description: "Weightless but indestructible Japanese design. Perfect for coffee anywhere.",
+    image: "/snowpeak.jpg"
+  },
+  {
+    id: 1,
+    name: "La Pavoni Europiccola",
+    description: "Handmade Italian copper espresso art since 1961. Manual lever creates perfect crema.",
+    image: "/lapavoni.jpg"
+  }
+];
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
+  const [currentProduct, setCurrentProduct] = useState(0);
+
+  // Auto rotate products every 3 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
+    }, 3000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
