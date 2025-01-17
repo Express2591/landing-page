@@ -1,4 +1,3 @@
-'use client';
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -24,11 +23,10 @@ What sets it apart is the perfect balance of features: light enough for backpack
   ]
 };
 
-export default function YesterdayPage() {
+export default function Page() {
   return (
     <div className="min-h-screen bg-white">
       <div className="max-w-2xl mx-auto px-4 py-12">
-        {/* Header */}
         <div className="mb-8">
           <Link 
             href="/confirmed" 
@@ -40,9 +38,7 @@ export default function YesterdayPage() {
           <p className="text-gray-600">See what our subscribers received yesterday</p>
         </div>
 
-        {/* Product Card */}
         <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden">
-          {/* Image */}
           <div className="relative aspect-video">
             <Image
               src={YESTERDAYS_PICK.image}
@@ -53,21 +49,18 @@ export default function YesterdayPage() {
             />
           </div>
 
-          {/* Content */}
           <div className="p-6">
             <div className="flex justify-between items-start mb-4">
               <h2 className="text-2xl font-bold">{YESTERDAYS_PICK.name}</h2>
               <div className="text-xl font-bold text-green-600">${YESTERDAYS_PICK.price}</div>
             </div>
 
-            {/* Description */}
             <div className="prose prose-gray mb-6">
               {YESTERDAYS_PICK.description.split('\n\n').map((paragraph, i) => (
                 <p key={i} className="text-gray-600 mb-4">{paragraph}</p>
               ))}
             </div>
 
-            {/* Specs */}
             <div className="bg-gray-50 rounded-xl p-4 mb-6">
               <h3 className="font-semibold mb-2">Specifications</h3>
               <ul className="space-y-1">
@@ -77,7 +70,6 @@ export default function YesterdayPage() {
               </ul>
             </div>
 
-            {/* CTA */}
             <a
               href={YESTERDAYS_PICK.link}
               target="_blank"
