@@ -1,27 +1,27 @@
 'use client';
-import React, { useState, useEffect, FormEvent } from 'react'; // Added useEffect import
+import React, { useState, useEffect, FormEvent } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
-// Sample products array (removed extra comma)
+// Sample products array showcasing American small-mid size businesses
 const PRODUCTS = [
   {
-    id: 2,
-    name: "Kaweco Sport Pen",
-    description: "Iconic 1935 German pocket pen. Expands to full size. Makes writing a joy.",
-    image: "/kaweco.jpg"
-  },
-  {
-    id: 3, 
-    name: "Snow Peak Titanium Mug",
-    description: "Weightless but indestructible Japanese design. Perfect for coffee anywhere.",
-    image: "/snowpeak.jpg"
-  },
-  {
     id: 1,
-    name: "La Pavoni Europiccola",
-    description: "Handmade Italian copper espresso art since 1961. Manual lever creates perfect crema.",
-    image: "/lapavoni.jpg"
+    name: "Handcrafted Leather Journal",
+    description: "Crafted by a family-owned bindery in Vermont, this journal uses full-grain leather for timeless durability.",
+    image: "/leather-journal.jpg"
+  },
+  {
+    id: 2, 
+    name: "Artisan Ceramic Mug",
+    description: "Made by a small pottery studio in Oregon, these mugs are hand-thrown for everyday elegance.",
+    image: "/ceramic-mug.jpg"
+  },
+  {
+    id: 3,
+    name: "Heirloom Wooden Cutting Board",
+    description: "Built by a Wisconsin craftsman, this black walnut board is designed to last generations.",
+    image: "/cutting-board.jpg"
   }
 ];
 
@@ -69,11 +69,11 @@ export default function LandingPage() {
         <div>
           <div className="text-center mb-6">
             <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Never Buy Cheap Junk Again
+              Makers on Mainstreet
             </h1>
             
             <p className="text-xl text-gray-600">
-              One daily email. One unbreakable product.
+              Discover American craftsmanship, one story at a time.
             </p>
           </div>
 
@@ -104,7 +104,7 @@ export default function LandingPage() {
                   <Star className="w-4 h-4 text-amber-500 fill-current" />
                 </div>
                 <p className="text-sm text-gray-600 font-medium">
-                  Join other smart shoppers
+                  Join supporters of American makers
                 </p>
               </div>
             </div>
@@ -113,7 +113,7 @@ export default function LandingPage() {
               <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
-              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;LastingBuys&rdquo;</p>
+              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
             </div>
           )}
         </div>
@@ -122,9 +122,9 @@ export default function LandingPage() {
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
-              <div className="text-lg font-bold">Recent Picks</div>
+              <div className="text-lg font-bold">Featured Makers</div>
               <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                TRENDING
+                CRAFTSMANSHIP
               </div>
             </div>
             <div className="relative w-full aspect-[16/9] mb-3">
@@ -157,7 +157,7 @@ export default function LandingPage() {
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium">Save Money</span>
+            <span className="font-medium">Support Small Biz</span>
           </div>
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <Timer className="w-6 h-6 text-green-500 mx-auto mb-2" />
@@ -165,7 +165,7 @@ export default function LandingPage() {
           </div>
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <Star className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium">Top Quality</span>
+            <span className="font-medium">Lasting Quality</span>
           </div>
         </div>
       </div>
