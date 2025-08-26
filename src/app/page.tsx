@@ -3,7 +3,7 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
-// Sample products array showcasing American small-mid size businesses
+// Sample products array
 const PRODUCTS = [
   {
     id: 1,
@@ -30,55 +30,56 @@ export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
 
-  // Auto rotate products every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
     }, 3000);
-
     return () => clearInterval(timer);
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-  e.preventDefault();
-  try {
-    const response = await fetch('/api/subscribe', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ email }),
-    });
-    const data = await response.json();
-    if (data.success) {
-      setSubmitted(true);
-    } else {
-      throw new Error(data.error || 'Failed to subscribe');
+    e.preventDefault();
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      alert('Please enter a valid email address.');
+      return;
     }
-  } catch (error) {
-    console.error('Subscription error:', error);
-    alert('Something went wrong. Please try again or check your email input.');
-  }
-};
+    try {
+      const response = await fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email }),
+      });
+      console.log('Response status:', response.status);
+      const data = await response.json();
+      console.log('Response data:', data);
+      if (data.success) {
+        setSubmitted(true);
+      } else {
+        throw new Error(data.error || 'Failed to subscribe');
+      }
+    } catch (error) {
+      console.error('Subscription error:', error);
+      alert(`Something went wrong. Please try again or check your email input. Details: ${error.message}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
         <div>
           <div className="text-center mb-6">
-            {/* Replace h1 and p with smaller Image component */}
             <Image
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={150} // Reduced from 200 to 150
-              height={75}  // Reduced from 100 to 75
+              width={150}
+              height={75}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
               Discover American craftsmanship, one story at a time.
             </p>
           </div>
-
           {!submitted ? (
             <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
               <form onSubmit={handleSubmit} className="space-y-3">
@@ -119,8 +120,6 @@ export default function LandingPage() {
             </div>
           )}
         </div>
-
-        {/* Rotating Recent Picks without slide animation */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -137,7 +136,6 @@ export default function LandingPage() {
                 className="object-cover rounded-lg transition-opacity duration-500"
                 priority
               />
-              {/* Dots indicator */}
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
                 {PRODUCTS.map((_, index) => (
                   <div 
@@ -155,7 +153,6 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />

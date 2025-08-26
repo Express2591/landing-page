@@ -2,11 +2,12 @@ import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
   const { email } = await request.json();
-  const apiKey = process.env.BEEHIIV_API_KEY; // Store securely without NEXT_PUBLIC
+  const apiKey = process.env.BEEHIIV_API_KEY;
   const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
 
   if (!apiKey || !publicationId) {
-    return NextResponse.json({ error: 'Missing API key or Publication ID' }, { status: 500 });
+    console.error('Environment variables not loaded');
+    return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
   }
 
   try {
@@ -27,7 +28,8 @@ export async function POST(request: Request) {
     if (response.ok) {
       return NextResponse.json({ success: true });
     } else {
-      return NextResponse.json({ error: data.error || 'Subscription failed' }, { status: 400 });
+      console.error('Beehiiv API error:', data);
+      return NextResponse.json({ error: data.error || 'Subscription failed' }, { status: response.status });
     }
   } catch (error) {
     console.error('Subscription error:', error);
