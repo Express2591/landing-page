@@ -1,45 +1,36 @@
 import { NextResponse } from 'next/server';
 
 export async function POST(request: Request) {
+  const { email } = await request.json();
+  const apiKey = process.env.BEEHIIV_API_KEY; // Store securely without NEXT_PUBLIC
+  const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
+
+  if (!apiKey || !publicationId) {
+    return NextResponse.json({ error: 'Missing API key or Publication ID' }, { status: 500 });
+  }
+
   try {
-    const { email } = await request.json();
-
-    if (!process.env.CONVERTKIT_API_KEY) {
-      throw new Error('API Key not configured');
-    }
-
-    // Using form ID 7574436 based on your ConvertKit URL
-    const response = await fetch('https://api.convertkit.com/v3/forms/7574436/subscribe', {
+    const response = await fetch(`https://api.beehiiv.com/v2/publications/${publicationId}/subscriptions`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        api_key: process.env.CONVERTKIT_API_KEY,
-        email: email
+        email,
+        reactivate_existing: true,
+        send_welcome_email: true,
       }),
     });
 
     const data = await response.json();
-    console.log('ConvertKit Response:', data); // Debug log
-
-    if (!response.ok) {
-      console.error('ConvertKit Error:', data); // Debug log
-      throw new Error(data.message || 'Failed to subscribe');
+    if (response.ok) {
+      return NextResponse.json({ success: true });
+    } else {
+      return NextResponse.json({ error: data.error || 'Subscription failed' }, { status: 400 });
     }
-
-    return NextResponse.json({
-      success: true
-    });
-
   } catch (error) {
     console.error('Subscription error:', error);
-    return NextResponse.json(
-      { 
-        success: false,
-        error: error instanceof Error ? error.message : 'Unknown error'
-      }, 
-      { status: 500 }
-    );
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

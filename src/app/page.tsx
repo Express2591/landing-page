@@ -40,28 +40,26 @@ export default function LandingPage() {
   }, []);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const response = await fetch('/api/subscribe', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
-      
-      const data = await response.json();
-      
-      if (data.success) {
-        setSubmitted(true);
-      } else {
-        throw new Error(data.error || 'Failed to subscribe');
-      }
-    } catch (error) {
-      console.error('Submission error:', error);
-      alert('Something went wrong. Please try again.');
+  e.preventDefault();
+  try {
+    const response = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email }),
+    });
+    const data = await response.json();
+    if (data.success) {
+      setSubmitted(true);
+    } else {
+      throw new Error(data.error || 'Failed to subscribe');
     }
-  };
+  } catch (error) {
+    console.error('Subscription error:', error);
+    alert('Something went wrong. Please try again or check your email input.');
+  }
+};
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
