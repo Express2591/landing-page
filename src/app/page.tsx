@@ -131,7 +131,7 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Rotating Recent Picks with scaled-down images */}
+        {/* Rotating Recent Picks with centered images */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -140,7 +140,7 @@ export default function LandingPage() {
                 CRAFTSMANSHIP
               </div>
             </div>
-            <div className="w-full mb-3 h-[200px]">
+            <div className="w-full h-[200px] mb-3 flex items-center justify-center">
               <Image 
                 src={PRODUCTS[currentProduct].image}
                 alt={PRODUCTS[currentProduct].name}
@@ -150,21 +150,21 @@ export default function LandingPage() {
                 onError={(e) => handleImageError(e, PRODUCTS[currentProduct].name)}
                 priority
               />
-              {/* Dots indicator */}
-              <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
-                {PRODUCTS.map((_, index) => (
-                  <div 
-                    key={index}
-                    className={`w-2 h-2 rounded-full ${index === currentProduct ? 'bg-white' : 'bg-white/50'}`}
-                  />
-                ))}
-              </div>
             </div>
             <div className="text-xl font-bold mb-2 text-black transition-all duration-300">
               {PRODUCTS[currentProduct].name}
             </div>
             <div className="text-gray-600 text-black transition-all duration-300">
               {PRODUCTS[currentProduct].description}
+            </div>
+            {/* Dots indicator */}
+            <div className="flex justify-center gap-1 mt-2">
+              {PRODUCTS.map((_, index) => (
+                <div 
+                  key={index}
+                  className={`w-2 h-2 rounded-full ${index === currentProduct ? 'bg-white' : 'bg-white/50'}`}
+                />
+              ))}
             </div>
           </div>
         </div>
