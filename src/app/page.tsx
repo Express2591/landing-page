@@ -7,7 +7,7 @@ import Image from 'next/image';
 const PRODUCTS = [
   {
     id: 1,
-    name: "North American Hardwood Cutting Board",
+    name: "Hardwood Cutting Board",
     description: "Small-town New England produced cutting boards since 1944",
     image: "/cuttingboard.jpg"
   },
@@ -21,7 +21,7 @@ const PRODUCTS = [
     id: 3,
     name: "Windproof Lighter",
     description: "Handcrafted by Zippo in Bradford, PA since 1932, this iconic metal lighter offers unmatched durability with a lifetime guarantee.",
-    image: "/zippo-lighter.jpg"
+    image: "/zippolighter.jpg"
   }
 ];
 
