@@ -62,7 +62,6 @@ export default function LandingPage() {
       }
     } catch (error) {
       console.error('Subscription error:', error);
-      // Type guard to safely access error.message
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
       alert(`Something went wrong. Please try again or check your email input. Details: ${errorMessage}`);
     }
@@ -76,19 +75,17 @@ export default function LandingPage() {
             <Image
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={100}
-              height={25}
+              width={150}
+              height={75}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
               Discover American craftsmanship, one story at a time.
             </p>
           </div>
+
           {!submitted ? (
             <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
-              <p className="text-sm text-black font-medium">
-              Discover American craftsmanship, one story at a time.
-            </p>
               <form onSubmit={handleSubmit} className="space-y-3">
                 <input
                   type="email"
@@ -120,12 +117,15 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="bg-green-100 p-6 rounded-xl text-center mb-6">
+              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
               <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
             </div>
           )}
         </div>
+
+        {/* Rotating Recent Picks with properly sized images */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -134,14 +134,15 @@ export default function LandingPage() {
                 CRAFTSMANSHIP
               </div>
             </div>
-            <div className="relative w-full aspect-[16/9] mb-3">
+            <div className="relative w-full mb-3" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
               <Image 
                 src={PRODUCTS[currentProduct].image}
                 alt={PRODUCTS[currentProduct].name}
                 fill
-                className="object-cover rounded-lg transition-opacity duration-500"
+                className="object-cover rounded-lg"
                 priority
               />
+              {/* Dots indicator */}
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
                 {PRODUCTS.map((_, index) => (
                   <div 
@@ -159,6 +160,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
