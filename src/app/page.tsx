@@ -3,7 +3,7 @@ import React, { useState, useEffect, FormEvent } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
-// Sample products array
+// Sample products array showcasing American small-mid size businesses
 const PRODUCTS = [
   {
     id: 1,
@@ -30,10 +30,12 @@ export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
 
+  // Auto rotate products every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
     }, 3000);
+
     return () => clearInterval(timer);
   }, []);
 
@@ -60,7 +62,9 @@ export default function LandingPage() {
       }
     } catch (error) {
       console.error('Subscription error:', error);
-      alert(`Something went wrong. Please try again or check your email input. Details: ${error.message}`);
+      // Type guard to safely access error.message
+      const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
+      alert(`Something went wrong. Please try again or check your email input. Details: ${errorMessage}`);
     }
   };
 

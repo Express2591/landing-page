@@ -5,8 +5,8 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Lasting Buys | Products That Last Forever',
-  description: 'Get daily recommendations for products that never break.',
+  title: 'Makers on Main St',
+  description: 'Stories of American small businesses.',
   icons: {
     icon: '/favicon.png',
     // You can also add these for mobile devices
