@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, FormEvent } from 'react';
+import React, { useState, useEffect, FormEvent, useRef } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
@@ -29,6 +29,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
+  const sliderRef = useRef(null);
 
   // Auto rotate products every 3 seconds with slide animation
   useEffect(() => {
@@ -133,12 +134,13 @@ export default function LandingPage() {
             </div>
             <div className="relative w-full aspect-[16/9] mb-3 overflow-hidden">
               <div
+                ref={sliderRef}
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentProduct * 100}%)`, width: `${PRODUCTS.length * 100}%` }}
+                style={{ transform: `translateX(-${currentProduct * (100 / PRODUCTS.length)}%)`, width: '100%' }}
               >
                 {PRODUCTS.map((product, index) => (
-                  <div key={index} className="w-1/3 flex-shrink-0 p-2">
-                    <div className="relative w-full h-full">
+                  <div key={index} className="w-full flex-shrink-0">
+                    <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
                       <Image
                         src={product.image}
                         alt={product.name}
