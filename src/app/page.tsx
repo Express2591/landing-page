@@ -76,8 +76,8 @@ export default function LandingPage() {
             <Image
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={150}
-              height={75}
+              width={100}
+              height={25}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
@@ -117,7 +117,6 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="bg-green-100 p-6 rounded-xl text-center mb-6">
-              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
               <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
