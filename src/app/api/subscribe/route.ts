@@ -5,6 +5,9 @@ export async function POST(request: Request) {
   const apiKey = process.env.BEEHIIV_API_KEY;
   const publicationId = process.env.BEEHIIV_PUBLICATION_ID;
 
+  console.log('API Key:', apiKey);
+  console.log('Publication ID:', publicationId);
+
   if (!apiKey || !publicationId) {
     console.error('Environment variables not loaded');
     return NextResponse.json({ error: 'Server configuration error' }, { status: 500 });
