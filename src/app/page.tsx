@@ -30,7 +30,7 @@ export default function LandingPage() {
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
 
-  // Auto rotate products every 3 seconds
+  // Auto rotate products every 3 seconds with slide animation
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
@@ -68,12 +68,12 @@ export default function LandingPage() {
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
         <div>
           <div className="text-center mb-6">
-            {/* Replace h1 and p with Image component */}
+            {/* Replace h1 and p with smaller Image component */}
             <Image
-              src="/makers-on-mainstreet-logo.jpg" // Replace with the actual file name or path
+              src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={200} // Adjusted to fit within max-w-md (approx. 768px) and match text height
-              height={100} // Adjusted to approximate the height of text-3xl + padding
+              width={150} // Reduced from 200 to 150
+              height={75}  // Reduced from 100 to 75
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
@@ -122,38 +122,47 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Rotating Recent Picks */}
+        {/* Rotating Recent Picks with slide animation */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
-              <div className="text-lg font-bold">Featured Makers</div>
+              <div className="text-lg font-bold text-black">Featured Makers</div>
               <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
                 CRAFTSMANSHIP
               </div>
             </div>
-            <div className="relative w-full aspect-[16/9] mb-3">
-              <Image 
-                src={PRODUCTS[currentProduct].image}
-                alt={PRODUCTS[currentProduct].name}
-                fill
-                className="object-cover rounded-lg transition-opacity duration-500"
-                priority
-              />
+            <div className="relative w-full aspect-[16/9] mb-3 overflow-hidden">
+              <div
+                className="flex transition-transform duration-500 ease-in-out"
+                style={{ transform: `translateX(-${currentProduct * 100}%)` }}
+              >
+                {PRODUCTS.map((product, index) => (
+                  <div key={index} className="w-full flex-shrink-0">
+                    <Image
+                      src={product.image}
+                      alt={product.name}
+                      fill
+                      className="object-cover rounded-lg"
+                      priority
+                    />
+                    <div className="text-xl font-bold mb-2 text-black transition-all duration-300">
+                      {product.name}
+                    </div>
+                    <div className="text-gray-600 text-black transition-all duration-300">
+                      {product.description}
+                    </div>
+                  </div>
+                ))}
+              </div>
               {/* Dots indicator */}
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
                 {PRODUCTS.map((_, index) => (
-                  <div 
+                  <div
                     key={index}
                     className={`w-2 h-2 rounded-full ${index === currentProduct ? 'bg-white' : 'bg-white/50'}`}
                   />
                 ))}
               </div>
-            </div>
-            <div className="text-xl font-bold mb-2 transition-all duration-300">
-              {PRODUCTS[currentProduct].name}
-            </div>
-            <div className="text-gray-600 transition-all duration-300">
-              {PRODUCTS[currentProduct].description}
             </div>
           </div>
         </div>
@@ -161,15 +170,15 @@ export default function LandingPage() {
         <div className="grid grid-cols-3 gap-3">
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium">Support Small Biz</span>
+            <span className="font-medium text-black">Support Small Biz</span>
           </div>
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <Timer className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium">Quick Read</span>
+            <span className="font-medium text-black">Quick Read</span>
           </div>
           <div className="bg-green-50 p-4 rounded-xl text-center">
             <Star className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium">Lasting Quality</span>
+            <span className="font-medium text-black">Lasting Quality</span>
           </div>
         </div>
       </div>
