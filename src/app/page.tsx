@@ -86,6 +86,9 @@ export default function LandingPage() {
           </div>
           {!submitted ? (
             <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
+              <p className="text-sm text-black font-medium">
+              Discover American craftsmanship, one story at a time.
+            </p>
               <form onSubmit={handleSubmit} className="space-y-3">
                 <input
                   type="email"
