@@ -7,21 +7,21 @@ import Image from 'next/image';
 const PRODUCTS = [
   {
     id: 1,
-    name: "Handcrafted Leather Journal",
-    description: "Crafted by a family-owned bindery in Vermont, this journal uses full-grain leather for timeless durability.",
-    image: "/leather-journal.jpg"
+    name: "North American Hardwood Cutting Board",
+    description: "Small-town New England produced cutting boards since 1944",
+    image: "/cuttingboard.jpg"
   },
   {
     id: 2, 
-    name: "Artisan Ceramic Mug",
-    description: "Made by a small pottery studio in Oregon, these mugs are hand-thrown for everyday elegance.",
-    image: "/ceramic-mug.jpg"
+    name: "Tin Cloth Jacket",
+    description: "Crafted by Filson in Seattle since 1897, this rugged, waxed canvas jacket is built for lifelong durability in harsh outdoor conditions.",
+    image: "/filsonjacket.jpg"
   },
   {
     id: 3,
-    name: "Heirloom Wooden Cutting Board",
-    description: "Built by a Wisconsin craftsman, this black walnut board is designed to last generations.",
-    image: "/cutting-board.jpg"
+    name: "Windproof Lighter",
+    description: "Handcrafted by Zippo in Bradford, PA since 1932, this iconic metal lighter offers unmatched durability with a lifetime guarantee.",
+    image: "/zippolighter.jpg"
   }
 ];
 
@@ -68,10 +68,14 @@ export default function LandingPage() {
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
         <div>
           <div className="text-center mb-6">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">
-              Makers on Mainstreet
-            </h1>
-            
+            {/* Replace h1 and p with Image component */}
+            <Image
+              src="/makers-on-mainstreet-logo.jpg" // Replace with the actual file name or path
+              alt="Makers on Mainstreet Logo"
+              width={200} // Adjusted to fit within max-w-md (approx. 768px) and match text height
+              height={100} // Adjusted to approximate the height of text-3xl + padding
+              className="mx-auto"
+            />
             <p className="text-xl text-gray-600">
               Discover American craftsmanship, one story at a time.
             </p>
