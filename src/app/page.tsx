@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect, FormEvent, useRef } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { ShoppingBag, Timer, Star } from 'lucide-react';
 import Image from 'next/image';
 
@@ -29,9 +29,8 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
-  const sliderRef = useRef(null);
 
-  // Auto rotate products every 3 seconds with slide animation
+  // Auto rotate products every 3 seconds
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentProduct((prev) => (prev + 1) % PRODUCTS.length);
@@ -123,7 +122,7 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Rotating Recent Picks with slide animation */}
+        {/* Rotating Recent Picks without slide animation */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -132,41 +131,29 @@ export default function LandingPage() {
                 CRAFTSMANSHIP
               </div>
             </div>
-            <div className="relative w-full aspect-[16/9] mb-3 overflow-hidden">
-              <div
-                ref={sliderRef}
-                className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentProduct * (100 / PRODUCTS.length)}%)`, width: '100%' }}
-              >
-                {PRODUCTS.map((product, index) => (
-                  <div key={index} className="w-full flex-shrink-0">
-                    <div className="relative w-full h-0 pb-[56.25%]"> {/* 16:9 aspect ratio */}
-                      <Image
-                        src={product.image}
-                        alt={product.name}
-                        fill
-                        className="object-cover rounded-lg"
-                        priority
-                      />
-                    </div>
-                    <div className="text-xl font-bold mb-2 text-black transition-all duration-300">
-                      {product.name}
-                    </div>
-                    <div className="text-gray-600 text-black transition-all duration-300">
-                      {product.description}
-                    </div>
-                  </div>
-                ))}
-              </div>
+            <div className="relative w-full aspect-[16/9] mb-3">
+              <Image 
+                src={PRODUCTS[currentProduct].image}
+                alt={PRODUCTS[currentProduct].name}
+                fill
+                className="object-cover rounded-lg transition-opacity duration-500"
+                priority
+              />
               {/* Dots indicator */}
               <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2 flex gap-1">
                 {PRODUCTS.map((_, index) => (
-                  <div
+                  <div 
                     key={index}
                     className={`w-2 h-2 rounded-full ${index === currentProduct ? 'bg-white' : 'bg-white/50'}`}
                   />
                 ))}
               </div>
+            </div>
+            <div className="text-xl font-bold mb-2 text-black transition-all duration-300">
+              {PRODUCTS[currentProduct].name}
+            </div>
+            <div className="text-gray-600 text-black transition-all duration-300">
+              {PRODUCTS[currentProduct].description}
             </div>
           </div>
         </div>
