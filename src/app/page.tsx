@@ -134,17 +134,19 @@ export default function LandingPage() {
             <div className="relative w-full aspect-[16/9] mb-3 overflow-hidden">
               <div
                 className="flex transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentProduct * 100}%)` }}
+                style={{ transform: `translateX(-${currentProduct * 100}%)`, width: `${PRODUCTS.length * 100}%` }}
               >
                 {PRODUCTS.map((product, index) => (
-                  <div key={index} className="w-full flex-shrink-0">
-                    <Image
-                      src={product.image}
-                      alt={product.name}
-                      fill
-                      className="object-cover rounded-lg"
-                      priority
-                    />
+                  <div key={index} className="w-1/3 flex-shrink-0 p-2">
+                    <div className="relative w-full h-full">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        className="object-cover rounded-lg"
+                        priority
+                      />
+                    </div>
                     <div className="text-xl font-bold mb-2 text-black transition-all duration-300">
                       {product.name}
                     </div>
