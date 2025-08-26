@@ -21,7 +21,7 @@ const PRODUCTS = [
     id: 3,
     name: "Windproof Lighter",
     description: "Handcrafted by Zippo in Bradford, PA since 1932, this iconic metal lighter offers unmatched durability with a lifetime guarantee.",
-    image: "/zippolighter.jpg"
+    image: "/zippo-lighter.jpg"
   }
 ];
 
@@ -67,6 +67,12 @@ export default function LandingPage() {
     }
   };
 
+  // Fallback image handler
+  const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>, productName: string) => {
+    console.error(`Image failed to load for ${productName}`);
+    e.currentTarget.src = '/default-image.jpg'; // Fallback image path
+  };
+
   return (
     <div className="min-h-screen bg-white flex flex-col">
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
@@ -76,7 +82,7 @@ export default function LandingPage() {
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
               width={75}
-              height={150}
+              height={125}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
@@ -125,7 +131,7 @@ export default function LandingPage() {
           )}
         </div>
 
-        {/* Rotating Recent Picks with properly sized images */}
+        {/* Rotating Recent Picks with scaled-down images */}
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
@@ -134,12 +140,14 @@ export default function LandingPage() {
                 CRAFTSMANSHIP
               </div>
             </div>
-            <div className="relative w-full mb-3" style={{ paddingBottom: '56.25%' }}> {/* 16:9 aspect ratio */}
+            <div className="w-full mb-3 h-[200px]">
               <Image 
                 src={PRODUCTS[currentProduct].image}
                 alt={PRODUCTS[currentProduct].name}
-                fill
-                className="object-cover rounded-lg"
+                width={300}
+                height={169}
+                className="max-w-full max-h-[200px] object-contain rounded-lg"
+                onError={(e) => handleImageError(e, PRODUCTS[currentProduct].name)}
                 priority
               />
               {/* Dots indicator */}
