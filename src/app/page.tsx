@@ -75,8 +75,8 @@ export default function LandingPage() {
             <Image
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={25}
-              height={100}
+              width={75}
+              height={150}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
