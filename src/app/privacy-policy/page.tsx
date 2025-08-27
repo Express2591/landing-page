@@ -21,7 +21,7 @@ export default function PrivacyPolicy() {
       <main className="flex-1 px-4 py-6">
         <div className="max-w-md mx-auto">
           <h1 className="text-2xl font-bold text-black mb-6 text-center">Privacy Policy</h1>
-          <div className="bg-gray-50 p-6 rounded-2xl shadow-lg text-gray-600 text-sm space-y-4">
+          <div className="bg-gray-50 p-6 rounded-2xl shadow-lg text-gray-600 text-sm space-y-4 text-justify">
             <section>
               <h2 className="text-lg font-bold text-black mb-2">Introduction</h2>
               <p>
