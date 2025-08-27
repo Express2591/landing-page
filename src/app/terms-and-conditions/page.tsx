@@ -84,7 +84,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-lg font-bold text-black mb-2">Governing Law</h2>
               <p>
-                These Terms and Conditions are governed by the laws of the United States and the state of Arizona. Any disputes arising from these terms will be resolved in the courts of [Your State].
+                These Terms and Conditions are governed by the laws of the United States and the state of Arizona. Any disputes arising from these terms will be resolved in the courts of Arizona.
               </p>
             </section>
             <section>
