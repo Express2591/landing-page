@@ -86,7 +86,7 @@ export default function LandingPage() {
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
-              Discover American craftsmanship, one story at a time.
+              Discover hidden American companies making products that last a lifetime
             </p>
           </div>
 
