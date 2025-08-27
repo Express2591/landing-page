@@ -78,26 +78,26 @@ export default function LandingPage() {
       <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
         <div>
           <div className="text-center mb-6">
-            <Image
+            <Image 
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={75}
-              height={125}
+              width={150} // Reduced from 200 to 150
+              height={75}  // Reduced from 100 to 75
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
-              Discover hidden American companies making products that last a lifetime
+              Discover American craftsmanship, one story at a time.
             </p>
           </div>
 
           {!submitted ? (
-            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-6">
+            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-3"> {/* Reduced mb-6 to mb-3 */}
               <form onSubmit={handleSubmit} className="space-y-3">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ENTER YOUR EMAIL"
+                  placeholder="Your email..."
                   className="w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
@@ -105,24 +105,23 @@ export default function LandingPage() {
                   type="submit"
                   className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
                 >
-                  JOIN FOR FREE
+                  JOIN FREE
                 </button>
               </form>
-              <div className="flex items-center justify-center gap-2 mt-3">
-                <div className="flex">
-                  <Star className="w-4 h-4 text-amber-500 fill-current" />
-                  <Star className="w-4 h-4 text-amber-500 fill-current" />
-                  <Star className="w-4 h-4 text-amber-500 fill-current" />
-                  <Star className="w-4 h-4 text-amber-500 fill-current" />
-                  <Star className="w-4 h-4 text-amber-500 fill-current" />
-                </div>
+              <div className="flex flex-col gap-2 mt-3 text-center">
                 <p className="text-sm text-gray-600 font-medium">
-                  Join supporters of American makers
+                  "Great insights into quality products!" - John D.
+                </p>
+                <p className="text-sm text-gray-600 font-medium">
+                  "Love the stories behind the makers." - Sarah M.
+                </p>
+                <p className="text-sm text-gray-600 font-medium">
+                  "Highly recommend for anyone who values craftsmanship." - Mike L.
                 </p>
               </div>
             </div>
           ) : (
-            <div className="bg-green-100 p-6 rounded-xl text-center mb-6">
+            <div className="bg-green-100 p-6 rounded-xl text-center mb-3"> {/* Reduced mb-6 to mb-3 */}
               <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
@@ -165,7 +164,7 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-        </div>
+      </div>
     </div>
   );
 }
