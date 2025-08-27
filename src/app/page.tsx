@@ -154,7 +154,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;I haven't had to replace anything I bought from these companies yet. Going on 2 years.&quot; - Mike L.
+                    &quot;I haven&apos;t had to replace anything I bought from these companies yet. Going on 2 years.&quot; - Mike L.
                   </p>
                 </div>
               </div>
