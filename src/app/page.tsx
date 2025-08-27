@@ -81,8 +81,8 @@ export default function LandingPage() {
             <Image 
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
-              width={150} // Reduced from 200 to 150
-              height={75}  // Reduced from 100 to 75
+              width={150}
+              height={75}
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
@@ -91,7 +91,7 @@ export default function LandingPage() {
           </div>
 
           {!submitted ? (
-            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-3"> {/* Reduced mb-6 to mb-3 */}
+            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-3">
               <form onSubmit={handleSubmit} className="space-y-3">
                 <input
                   type="email"
@@ -109,19 +109,40 @@ export default function LandingPage() {
                 </button>
               </form>
               <div className="flex flex-col gap-2 mt-3 text-center">
-                <p className="text-sm text-gray-600 font-medium">
-                  &quot;Found 12 companies I now buy from regularly&quot; - John D.
-                </p>
-                <p className="text-sm text-gray-600 font-medium">
-                  &quot;Discovered products that actually last years, not months&quot; - Sarah M.
-                </p>
-                <p className="text-sm text-gray-600 font-medium">
-                  &quot;Finally found American alternatives to cheap imports&quot; - Mike L.
-                </p>
+                <div>
+                  <div className="flex justify-center gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-600 font-medium">
+                    &quot;Found 12 companies I now buy from regularly&quot; - John D.
+                  </p>
+                </div>
+                <div>
+                  <div className="flex justify-center gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-600 font-medium">
+                    &quot;Discovered products that actually last years, not months&quot; - Sarah M.
+                  </p>
+                </div>
+                <div>
+                  <div className="flex justify-center gap-1 mb-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                    ))}
+                  </div>
+                  <p className="text-sm text-gray-600 font-medium">
+                    &quot;Finally found American alternatives to cheap imports&quot; - Mike L.
+                  </p>
+                </div>
               </div>
             </div>
           ) : (
-            <div className="bg-green-100 p-6 rounded-xl text-center mb-3"> {/* Reduced mb-6 to mb-3 */}
+            <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
               <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
