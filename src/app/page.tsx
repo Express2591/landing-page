@@ -110,13 +110,13 @@ export default function LandingPage() {
               </form>
               <div className="flex flex-col gap-2 mt-3 text-center">
                 <p className="text-sm text-gray-600 font-medium">
-                  "Great insights into quality products!" - John D.
+                  &quot;Found 12 companies I now buy from regularly&quot; - John D.
                 </p>
                 <p className="text-sm text-gray-600 font-medium">
-                  "Love the stories behind the makers." - Sarah M.
+                  &quot;Discovered products that actually last years, not months&quot; - Sarah M.
                 </p>
                 <p className="text-sm text-gray-600 font-medium">
-                  "Highly recommend for anyone who values craftsmanship." - Mike L.
+                  &quot;Finally found American alternatives to cheap imports&quot; - Mike L.
                 </p>
               </div>
             </div>
