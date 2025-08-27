@@ -99,7 +99,7 @@ export default function LandingPage() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="ENTER YOUR EMAIL"
-                  className="w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className={`w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 ${email ? 'text-black' : 'text-gray-500'}`}
                   required
                 />
                 <button
