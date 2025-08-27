@@ -76,9 +76,9 @@ export default function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      <header className="px-4 py-6">
-        <div className="max-w-md mx-auto flex items-center justify-between">
-          <Link href="/">
+      <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
+        <div>
+          <div className="text-center mb-6">
             <Image 
               src="/makers-on-mainstreet-logo.jpg"
               alt="Makers on Mainstreet Logo"
@@ -86,23 +86,6 @@ export default function LandingPage() {
               height={75}
               className="mx-auto"
             />
-          </Link>
-          <nav className="flex gap-4 text-sm text-gray-600">
-            <Link href="/" className="text-green-500 hover:underline">
-              Home
-            </Link>
-            <Link href="/privacy-policy" className="text-green-500 hover:underline">
-              Privacy Policy
-            </Link>
-            <Link href="/terms-and-conditions" className="text-green-500 hover:underline">
-              Terms and Conditions
-            </Link>
-          </nav>
-        </div>
-      </header>
-      <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
-        <div>
-          <div className="text-center mb-6">
             <p className="text-xl text-gray-600">
               Discover hidden American companies making products that last a lifetime
             </p>
