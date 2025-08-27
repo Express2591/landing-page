@@ -2,6 +2,7 @@
 import React, { useState, useEffect, FormEvent } from 'react';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 // Sample products array showcasing American small-mid size businesses
 const PRODUCTS = [
@@ -86,7 +87,7 @@ export default function LandingPage() {
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
-              Discover hidden American companies making products that last a lifetime
+              Discover American craftsmanship, one story at a time.
             </p>
           </div>
 
@@ -133,7 +134,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;Found 12 companies I now buy from regularly&quot; - John D.
+                    &quot;Found 12 companies I now buy from regularly&quot; - Joseph P.
                   </p>
                 </div>
                 <div>
@@ -195,6 +196,24 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
+
+        {/* Footer with Disclosures and Links */}
+        <footer className="bg-gray-50 p-4 rounded-xl text-center text-sm text-gray-600">
+          <p className="mb-2">
+            Makers on Mainstreet may earn a commission from purchases made through affiliate links in our newsletter.
+          </p>
+          <p className="mb-2">
+            Subscribe to our free newsletter every Tuesday & Saturday. You can unsubscribe at any time.
+          </p>
+          <div className="flex justify-center gap-4">
+            <Link href="/privacy-policy" className="text-green-500 hover:underline">
+              Privacy Policy
+            </Link>
+            <Link href="/terms-and-conditions" className="text-green-500 hover:underline">
+              Terms and Conditions
+            </Link>
+          </div>
+        </footer>
       </div>
     </div>
   );
