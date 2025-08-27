@@ -108,6 +108,9 @@ export default function LandingPage() {
                   JOIN FOR FREE
                 </button>
               </form>
+              <p className="text-sm text-gray-600 font-medium text-center mt-3">
+                Free newsletter every Tuesday & Saturday
+              </p>
             </div>
           ) : (
             <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
