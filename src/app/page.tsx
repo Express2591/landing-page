@@ -144,7 +144,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;Finally ditched Amazon after finding these family-owned alternatives&quot; - Sarah M.
+                    &quot;Finally ditched Amazon after finding these family-owned alternatives that actually care about quality&quot; - Sarah M.
                   </p>
                 </div>
                 <div>
@@ -154,7 +154,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;No more buying junk that breaks or wears out in 6 months. These companies are the real deal.&quot; - Mike L.
+                    &quot;I haven't had to replace anything I bought from these companies yet. Going on 2 years.&quot; - Mike L.
                   </p>
                 </div>
               </div>
