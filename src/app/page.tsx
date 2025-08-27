@@ -1,6 +1,6 @@
 'use client';
 import React, { useState, useEffect, FormEvent } from 'react';
-import { ShoppingBag, Timer, Star } from 'lucide-react';
+import { Star } from 'lucide-react';
 import Image from 'next/image';
 
 // Sample products array showcasing American small-mid size businesses
