@@ -97,7 +97,7 @@ export default function LandingPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email..."
+                  placeholder="ENTER YOUR EMAIL"
                   className="w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
@@ -105,10 +105,24 @@ export default function LandingPage() {
                   type="submit"
                   className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
                 >
-                  JOIN FREE
+                  JOIN FOR FREE
                 </button>
               </form>
-              <div className="flex flex-col gap-2 mt-3 text-center">
+            </div>
+          ) : (
+            <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
+              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
+              <div className="text-xl font-bold text-green-800">Almost there!</div>
+              <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
+              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
+            </div>
+          )}
+
+          {/* Reviews Section */}
+          {!submitted && (
+            <div className="bg-gray-50 p-6 rounded-2xl shadow-lg mb-3">
+              <h2 className="text-lg font-bold text-black text-center mb-4">WHAT READERS ARE SAYING</h2>
+              <div className="flex flex-col gap-2 text-center">
                 <div>
                   <div className="flex justify-center gap-1 mb-1">
                     {[...Array(5)].map((_, i) => (
@@ -140,13 +154,6 @@ export default function LandingPage() {
                   </p>
                 </div>
               </div>
-            </div>
-          ) : (
-            <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
-              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
-              <div className="text-xl font-bold text-green-800">Almost there!</div>
-              <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
-              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
             </div>
           )}
         </div>
