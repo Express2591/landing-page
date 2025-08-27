@@ -87,7 +87,7 @@ export default function LandingPage() {
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
-              Discover American craftsmanship, one story at a time.
+              Discover hidden American companies making products that last a lifetime
             </p>
           </div>
 
@@ -134,7 +134,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;Found 12 companies I now buy from regularly&quot; - Joseph P.
+                    &quot;I'm now the person everyone asks for gift recommendations&quot; - Joseph P.
                   </p>
                 </div>
                 <div>
@@ -144,7 +144,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;Discovered products that actually last years, not months&quot; - Sarah M.
+                    &quot;Finally ditched Amazon after finding these family-owned alternatives&quot; - Sarah M.
                   </p>
                 </div>
                 <div>
@@ -154,7 +154,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;Finally found American alternatives to cheap imports&quot; - Mike L.
+                    &quot;No more buying junk that breaks or wears out in 6 months. These companies are the real deal.&quot; - Mike L.
                   </p>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function LandingPage() {
         <div className="bg-gray-50 rounded-xl shadow-sm mb-6">
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
-              <div className="text-lg font-bold text-black">Featured Makers</div>
+              <div className="text-lg font-bold text-black">Recently Featured Makers</div>
             </div>
             <div className="w-full h-[200px] mb-3 flex items-center justify-center">
               <Image 
