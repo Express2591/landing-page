@@ -86,7 +86,7 @@ export default function LandingPage() {
               className="mx-auto"
             />
             <p className="text-xl text-gray-600">
-              Discover American craftsmanship, one story at a time.
+              Discover hidden American companies making products that last a lifetime
             </p>
           </div>
 
@@ -97,7 +97,7 @@ export default function LandingPage() {
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Your email..."
+                  placeholder="ENTER YOUR EMAIL"
                   className="w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
                   required
                 />
@@ -105,7 +105,7 @@ export default function LandingPage() {
                   type="submit"
                   className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
                 >
-                  JOIN FREE
+                  JOIN FOR FREE
                 </button>
               </form>
               <div className="flex items-center justify-center gap-2 mt-3">
@@ -136,9 +136,6 @@ export default function LandingPage() {
           <div className="p-4">
             <div className="flex justify-between items-center mb-3">
               <div className="text-lg font-bold text-black">Featured Makers</div>
-              <div className="bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                CRAFTSMANSHIP
-              </div>
             </div>
             <div className="w-full h-[200px] mb-3 flex items-center justify-center">
               <Image 
@@ -168,22 +165,6 @@ export default function LandingPage() {
             </div>
           </div>
         </div>
-
-        <div className="grid grid-cols-3 gap-3">
-          <div className="bg-green-50 p-4 rounded-xl text-center">
-            <ShoppingBag className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium text-black">Support Small Biz</span>
-          </div>
-          <div className="bg-green-50 p-4 rounded-xl text-center">
-            <Timer className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium text-black">Quick Read</span>
-          </div>
-          <div className="bg-green-50 p-4 rounded-xl text-center">
-            <Star className="w-6 h-6 text-green-500 mx-auto mb-2" />
-            <span className="font-medium text-black">Lasting Quality</span>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
