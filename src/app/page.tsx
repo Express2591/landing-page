@@ -134,7 +134,7 @@ export default function LandingPage() {
                     ))}
                   </div>
                   <p className="text-sm text-gray-600 font-medium">
-                    &quot;I'm now the person everyone asks for gift recommendations&quot; - Joseph P.
+                    &quot;I&apos;m now the person everyone asks for gift recommendations&quot; - Joseph P.
                   </p>
                 </div>
                 <div>
