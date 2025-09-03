@@ -90,7 +90,7 @@ export default function TermsAndConditions() {
             <section>
               <h2 className="text-lg font-bold text-black mb-2">Contact Us</h2>
               <p>
-                If you have questions about these Terms and Conditions, please contact us at matt@makersonmainst.com or at:
+                If you have questions about these Terms and Conditions, please contact us at newsletter@makersonmainst.com or at:
               </p>
               <p>
                 Makers on Mainstreet<br />

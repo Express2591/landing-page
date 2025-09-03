@@ -86,7 +86,7 @@ export default function PrivacyPolicy() {
                 <li><strong>CCPA (California Residents)</strong>: Right to know, delete, or opt-out of the sale of personal information (we do not sell your data).</li>
               </ul>
               <p>
-                To exercise these rights, contact us at matt@makersonmainst.com.
+                To exercise these rights, contact us at newsletter@makersonmainst.com.
               </p>
             </section>
             <section>
@@ -104,7 +104,7 @@ export default function PrivacyPolicy() {
             <section>
               <h2 className="text-lg font-bold text-black mb-2">Contact Us</h2>
               <p>
-                If you have questions about this Privacy Policy, please contact us at matt@makersonmainst.com or at:
+                If you have questions about this Privacy Policy, please contact us at newsletter@makersonmainst.com or at:
               </p>
               <p>
                 Makers on Mainstreet<br />
