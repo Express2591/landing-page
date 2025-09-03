@@ -30,13 +30,15 @@ export default function SignUpComplete() {
         <div className="flex-1 px-4 flex flex-col max-w-md mx-auto w-full justify-between py-6">
           <div>
             <div className="text-center mb-6">
-              <Image 
-                src="/makers-on-mainstreet-logo.jpg"
-                alt="Makers on Mainstreet Logo"
-                width={150}
-                height={75}
-                className="mx-auto"
-              />
+              <Link href="/">
+            <Image 
+              src="/makers-on-mainstreet-logo.jpg"
+              alt="Makers on Mainstreet Logo"
+              width={150}
+              height={75}
+              className="mx-auto"
+            />
+          </Link>
               <p className="text-xl text-gray-600">
                 Discover hidden American companies making products that last a lifetime
               </p>
