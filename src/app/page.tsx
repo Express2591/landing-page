@@ -1,5 +1,6 @@
 'use client';
 import React, { useState, useEffect, FormEvent } from 'react';
+import { useRouter } from 'next/navigation';
 import { Star } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -30,6 +31,7 @@ export default function LandingPage() {
   const [email, setEmail] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
+  const router = useRouter();
 
   // Auto rotate products every 3 seconds
   useEffect(() => {
@@ -57,7 +59,7 @@ export default function LandingPage() {
       const data = await response.json();
       console.log('Response data:', data);
       if (data.success) {
-        setSubmitted(true);
+        router.push('/sign-up');
       } else {
         throw new Error(data.error || 'Failed to subscribe');
       }
@@ -115,7 +117,7 @@ export default function LandingPage() {
             </div>
           ) : (
             <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
-              <div className="text-2xl mb-2">&ldquo;✨&rdquo;</div>
+              <div className="text-2xl mb-2">✨</div>
               <div className="text-xl font-bold text-green-800">Almost there!</div>
               <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
               <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
