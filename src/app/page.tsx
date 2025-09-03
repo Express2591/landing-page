@@ -29,7 +29,6 @@ const PRODUCTS = [
 
 export default function LandingPage() {
   const [email, setEmail] = useState('');
-  const [submitted, setSubmitted] = useState(false);
   const [currentProduct, setCurrentProduct] = useState(0);
   const router = useRouter();
 
@@ -93,75 +92,64 @@ export default function LandingPage() {
             </p>
           </div>
 
-          {!submitted ? (
-            <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-3">
-              <form onSubmit={handleSubmit} className="space-y-3">
-                <input
-                  type="email"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder="ENTER YOUR EMAIL"
-                  className={`w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 ${email ? 'text-black' : 'text-gray-500'}`}
-                  required
-                />
-                <button
-                  type="submit"
-                  className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
-                >
-                  JOIN FOR FREE
-                </button>
-              </form>
-              <p className="text-sm text-gray-600 font-medium text-center mt-3">
-                Free newsletter every Tuesday & Saturday
-              </p>
-            </div>
-          ) : (
-            <div className="bg-green-100 p-6 rounded-xl text-center mb-3">
-              <div className="text-2xl mb-2">✨</div>
-              <div className="text-xl font-bold text-green-800">Almost there!</div>
-              <p className="text-green-700 mb-2">Please check your email to confirm your subscription.</p>
-              <p className="text-sm text-green-600">Can&apos;t find it? Check your spam folder for an email from &ldquo;Makers on Mainstreet&rdquo;</p>
-            </div>
-          )}
+          <div className="bg-green-50 p-6 rounded-2xl shadow-lg mb-3">
+            <form onSubmit={handleSubmit} className="space-y-3">
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                placeholder="ENTER YOUR EMAIL"
+                className={`w-full p-4 text-lg border-2 border-green-500 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500 ${email ? 'text-black' : 'text-gray-500'}`}
+                required
+              />
+              <button
+                type="submit"
+                className="w-full bg-green-500 text-white text-xl font-bold p-4 rounded-xl hover:bg-green-600 transition-transform hover:scale-105 transform"
+              >
+                JOIN FOR FREE
+              </button>
+            </form>
+            <p className="text-sm text-gray-600 font-medium text-center mt-3">
+              Free newsletter every Tuesday & Saturday
+            </p>
+          </div>
 
           {/* Reviews Section */}
-          {!submitted && (
-            <div className="bg-gray-50 p-6 rounded-2xl shadow-lg mb-3">
-              <h2 className="text-lg font-bold text-black text-center mb-4">WHAT READERS ARE SAYING</h2>
-              <div className="flex flex-col gap-2 text-center">
-                <div>
-                  <div className="flex justify-center gap-1 mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-gray-600 font-medium">
-                    &quot;I&apos;m now the person everyone asks for gift recommendations&quot; - Joseph P.
-                  </p>
+          <div className="bg-gray-50 p-6 rounded-2xl shadow-lg mb-3">
+            <h2 className="text-lg font-bold text-black text-center mb-4">WHAT READERS ARE SAYING</h2>
+            <div className="flex flex-col gap-2 text-center">
+              <div>
+                <div className="flex justify-center gap-1 mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  ))}
                 </div>
-                <div>
-                  <div className="flex justify-center gap-1 mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-gray-600 font-medium">
-                    &quot;Finally ditched Amazon after finding these family-owned alternatives that actually care about quality&quot; - Sarah M.
-                  </p>
+                <p className="text-sm text-gray-600 font-medium">
+                  &quot;I&apos;m now the person everyone asks for gift recommendations&quot; - Joseph P.
+                </p>
+              </div>
+              <div>
+                <div className="flex justify-center gap-1 mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  ))}
                 </div>
-                <div>
-                  <div className="flex justify-center gap-1 mb-1">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-sm text-gray-600 font-medium">
-                    &quot;I haven&apos;t had to replace anything I bought from these companies yet. Going on 2 years.&quot; - Mike L.
-                  </p>
+                <p className="text-sm text-gray-600 font-medium">
+                  &quot;Finally ditched Amazon after finding these family-owned alternatives that actually care about quality&quot; - Sarah M.
+                </p>
+              </div>
+              <div>
+                <div className="flex justify-center gap-1 mb-1">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-4 h-4 text-yellow-400 fill-yellow-400" />
+                  ))}
                 </div>
+                <p className="text-sm text-gray-600 font-medium">
+                  &quot;I haven&apos;t had to replace anything I bought from these companies yet. Going on 2 years.&quot; - Mike L.
+                </p>
               </div>
             </div>
-          )}
+          </div>
         </div>
 
         {/* Rotating Recent Picks with centered images */}
